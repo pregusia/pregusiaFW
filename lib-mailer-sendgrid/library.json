@@ -1,0 +1,5 @@
+{
+	"name": "lib-mailer-sendgrid",
+	"version": 1,
+	"priority": 70
+}

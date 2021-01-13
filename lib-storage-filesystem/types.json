@@ -1,0 +1,8 @@
+[
+	{"kind": "class", "name": "FilesystemStorage", "path": "./classes/classFilesystemStorage.php", "annos": [] },
+	{"kind": "class", "name": "FilesystemStorageApplicationComponent", "path": "./classes/classFilesystemStorageApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "FilesystemStorageContainer", "path": "./classes/classFilesystemStorageContainer.php", "annos": [] },
+	{"kind": "class", "name": "ORMTableRecordAdapter_SingleFile", "path": "./classes/orm/classORMTableRecordAdapter_SingleFile.php", "annos": ["NeedLibrary lib-orm"] },
+	{"kind": "class", "name": "ORMTableRecordAdapter_FilesCollection", "path": "./classes/orm/classORMTableRecordAdapter_FilesCollection.php", "annos": ["NeedLibrary lib-orm"] },
+	{"kind": "iface", "name": "IFilesystemStorageContainer", "path": "./classes/interfaceIFilessystemStorageContainer.php", "annos": [] }
+]

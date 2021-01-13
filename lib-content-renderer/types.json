@@ -1,0 +1,6 @@
+[
+	{"kind": "class", "name": "ContentRendererApplicationComponent", "path": "./classes/classContentRendererApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "ContentRendererException", "path": "./classes/classContentRendererException.php", "annos": [] },
+	{"kind": "class", "name": "ContentRenderer_wkhtmltopdf", "path": "./classes/renderers/classContentRenderer_wkhtmltopdf.php", "annos": [] },
+	{"kind": "iface", "name": "IContentRenderer", "path": "./classes/interfaceIContentRenderer.php", "annos": [] }
+]

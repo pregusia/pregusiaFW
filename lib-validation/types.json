@@ -1,0 +1,22 @@
+[
+	{"kind": "class", "name": "ValidatorFloatRange", "path": "./classes/validators/classValidatorFloatRange.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorMailAddress", "path": "./classes/validators/classValidatorMailAddress.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorNonEmpty", "path": "./classes/validators/classValidatorNonEmpty.php", "annos": [] },
+	{"kind": "class", "name": "ValidationProcessEntry", "path": "./classes/classValidationProcessEntry.php", "annos": [] },
+	{"kind": "class", "name": "ValidationException", "path": "./classes/errors/classValidationException.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorClassNameImplements", "path": "./classes/validators/classValidatorClassNameImplements.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorIntegerRange", "path": "./classes/validators/classValidatorIntegerRange.php", "annos": [] },
+	{"kind": "class", "name": "ValidationProcessAdder", "path": "./classes/classValidationProcessAdder.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorEnumerableValue", "path": "./classes/validators/classValidatorEnumerableValue.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorRegEx", "path": "./classes/validators/classValidatorRegex.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorURL", "path": "./classes/validators/classValidatorURL.php", "annos": [] },
+	{"kind": "iface", "name": "IValidatable", "path": "./classes/interfaceIValidatable.php", "annos": [] },
+	{"kind": "class", "name": "ValidationErrorsCollection", "path": "./classes/errors/classValidationErrorsCollection.php", "annos": [] },
+	{"kind": "iface", "name": "IValidator", "path": "./classes/interfaceIValidator.php", "annos": [] },
+	{"kind": "class", "name": "ValidationProcess", "path": "./classes/classValidationProcess.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorStringLength", "path": "./classes/validators/classValidatorStringLength.php", "annos": [] },
+	{"kind": "class", "name": "ValidationError", "path": "./classes/errors/classValidationError.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorClassNameExtends", "path": "./classes/validators/classValidatorClassNameExtends.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorClosure", "path": "./classes/validators/classValidatorClosure.php", "annos": [] },
+	{"kind": "class", "name": "ValidatorPassword", "path": "./classes/validators/classValidatorPassword.php", "annos": [] }
+]

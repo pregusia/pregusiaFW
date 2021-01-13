@@ -1,0 +1,34 @@
+{
+
+	"ValidatorClassNameExtends.notfound": "Klasa [fmt.strong]{value:s}[/fmt.strong] nie mogła zostać znaleziona",
+	"ValidatorClassNameExtends.invalid": "Klasa [fmt.strong]{value:s}[/fmt.strong] nie rozszerza [fmt.strong]{className:s}[/fmt.strong] lub jest abstrakcyjna",
+	
+	"ValidatorClassNameImplements.notfound": "Klasa [fmt.strong]{value:s}[/fmt.strong] nie mogła zostać znaleziona",
+	"ValidatorClassNameImplements.invalid": "Klasa [fmt.strong]{value:s}[/fmt.strong] nie implementuje [fmt.strong]{interfaceName:s}[/fmt.strong]",
+	
+	"ValidatorClosure.invalidreturn": "Zwrocona wartosc nie jest Closure",
+	
+	"ValidatorEnumerableValue.empty": "Pusta wartość jest nieprawidłowa",
+	"ValidatorEnumerableValue.invalid": "Niepoprawna wartość",
+	
+	"ValidatorFloatRange.min": "Podana wartość [fmt.strong]{value:.2f}[/fmt.strong] jest mniejsza niż dopuszczalna [fmt.strong]{min:.2f}[/fmt.strong]",
+	"ValidatorFloatRange.max": "Podana wartość [fmt.strong]{value:.2f}[/fmt.strong] jest wieksza niż dopuszczalna [fmt.strong]{max:.2f}[/fmt.strong]",
+	
+	"ValidatorMailAddress.invalid": "Nieprawidłowy adres e-mail",
+	
+	"ValidatorNonEmpty.invalid": "Niepusta wartość jest wymagana",
+	
+	"ValidatorPassword.empty": "Hasło nie może być puste",
+	"ValidatorPassword.length": "Minimalna długość hasła to [fmt.strong]{minLen:d}[/fmt.strong] znaków",
+	"ValidatorPassword.capital": "Hasło musi posiadać wielką literę",
+	"ValidatorPassword.digit": "Hasło musi posiadać cyfrę",
+	"ValidatorPassword.special": "Hasło musi posiadać znak specjalny",
+
+	"ValidatorStringLength.min": "Długość [fmt.strong]{length:d}[/fmt.strong] znaków jest mniejsza niż wymagana [fmt.strong]{min:d}[/fmt.strong] znaków",
+	"ValidatorStringLength.max": "Długość [fmt.strong]{length:d}[/fmt.strong] znaków jest większa niż dopuszczalna [fmt.strong]{max:d}[/fmt.strong] znaków",
+
+	"ValidatorURL.invalid": "Niepoprawny adres URL",
+	
+	"ValidatorRegEx.invalid": "Nieprawidłowa wartość"
+
+}

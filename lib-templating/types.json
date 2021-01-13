@@ -1,0 +1,13 @@
+[
+	{"kind": "iface", "name": "ITemplateRenderableSupplier", "path": "./classes/renderer/interfaceITemplateRenderableSupplier.php", "annos": [] },
+	{"kind": "class", "name": "TemplateRenderableProxy", "path": "./classes/renderer/classTemplateRenderableProxy.php", "annos": [] },
+	{"kind": "trait", "name": "TTemplateComponentHaving", "path": "./classes/traitTemplatingComponentHaving.php", "annos": [] },
+	{"kind": "class", "name": "TemplatingEngineApplicationComponent", "path": "./classes/classTemplatingEngineApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "TemplateException", "path": "./classes/classTemplateException.php", "annos": [] },
+	{"kind": "class", "name": "TemplateRenderableProxyContext", "path": "./classes/renderer/classTemplateRenderableProxyContext.php", "annos": [] },
+	{"kind": "class", "name": "TemplateRenderer", "path": "./classes/renderer/classTemplateRenderer.php", "annos": [] },
+	{"kind": "class", "name": "TemplateRendererState", "path": "./classes/renderer/classTemplateRendererState.php", "annos": [] },
+	{"kind": "class", "name": "TemplateCompiler", "path": "./classes/compiler/classTemplateCompiler.php", "annos": [] },
+	{"kind": "iface", "name": "ITemplateRenderableMod", "path": "./classes/renderer/interfaceITemplateRenderableMod.php", "annos": [] },
+	{"kind": "iface", "name": "ITemplatingEngineExtension", "path": "./classes/interfaceITemplatingEngineExtension.php", "annos": [] }
+]

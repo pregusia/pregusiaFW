@@ -1,0 +1,8 @@
+[
+	{"kind": "class", "name": "ORMTableRecordAdapter_NotingTags", "path": "./classes/orm/classORMTableRecordAdapter_NotingTags.php", "annos": [] },
+	{"kind": "class", "name": "UIWidget_NotingPropertiesInput", "path": "./classes/ui/classUIWidget_NotingPropertiesInput.php", "annos": [] },
+	{"kind": "class", "name": "NotingTagEnumerable", "path": "./classes/classNotingTagEnumerable.php", "annos": [] },
+	{"kind": "class", "name": "UIWidget_NotingTagsInput", "path": "./classes/ui/classUIWidget_NotingTagsInput.php", "annos": [] },
+	{"kind": "iface", "name": "INotableObject", "path": "./classes/orm/interfaceINotableObject.php", "annos": [] },
+	{"kind": "class", "name": "ORMTableRecordAdapter_NotingProperties", "path": "./classes/orm/classORMTableRecordAdapter_NotingProperties.php", "annos": [] }
+]

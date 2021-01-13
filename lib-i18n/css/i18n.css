@@ -1,0 +1,13 @@
+
+.ui-widget-I18NStringInput {  }
+.ui-Widget-I18NStringInput .btn-group .btn:first-child { border-bottom-left-radius: 0px; }
+.ui-Widget-I18NStringInput .btn-group .btn:last-child { border-bottom-right-radius: 0px; }
+.ui-Widget-I18NStringInput .btn-group .btn { border-bottom-width: 0px; }
+.ui-Widget-I18NStringInput .form-control { border-top-left-radius: 0px; }
+
+.ui-widget-I18NTextInput {  }
+.ui-Widget-I18NTextInput .btn-group .btn:first-child { border-bottom-left-radius: 0px; }
+.ui-Widget-I18NTextInput .btn-group .btn:last-child { border-bottom-right-radius: 0px; }
+.ui-Widget-I18NTextInput .btn-group .btn { border-bottom-width: 0px; }
+.ui-Widget-I18NTextInput .form-control { border-top-left-radius: 0px; }
+

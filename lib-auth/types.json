@@ -1,0 +1,10 @@
+[
+	{"kind": "class", "name": "SecureControllerBase", "path": "./classes/web/classSecureControllerBase.php", "annos": ["NeedLibrary lib-web-core"] },
+	{"kind": "class", "name": "AuthServiceLocalSession", "path": "./classes/auth/classAuthServiceLocalSession.php", "annos": [] },
+	{"kind": "class", "name": "AuthWebExtension", "path": "./classes/extensions/classAuthWebExtension.php", "annos": ["NeedLibrary lib-web-core"] },
+	{"kind": "iface", "name": "IAuthService", "path": "./classes/auth/interfaceIAuthService.php", "annos": [] },
+	{"kind": "iface", "name": "IAuthACLExtension", "path": "./classes/acl/interfaceIAuthACLExtension.php", "annos": [] },
+	{"kind": "iface", "name": "IAuthorizedUser", "path": "./classes/auth/interfaceIAuthorizedUser.php", "annos": [] },
+	{"kind": "class", "name": "ACLOperation", "path": "./classes/acl/enumACLOperation.php", "annos": [] },
+	{"kind": "class", "name": "AuthApplicationComponent", "path": "./classes/classAuthApplicationComponent.php", "annos": [] }
+]

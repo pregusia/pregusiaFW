@@ -1,0 +1,4 @@
+[
+	{"kind": "class", "name": "SourceCodeTextWidgetWebUIExtension", "path": "./classes/classSourceCodeTextWidgetWebUIExtension.php", "annos": [] },
+	{"kind": "class", "name": "UIWidget_SourceCodeTextInput", "path": "./classes/classUIWidget_SourceCodeTextInput.php", "annos": [] }
+]

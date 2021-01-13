@@ -1,0 +1,10 @@
+[
+	{"kind": "class", "name": "MailerSender_Logs", "path": "./classes/senders/classMailerSender_Logs.php", "annos": [] },
+	{"kind": "class", "name": "MailerSender_PHPMail", "path": "./classes/senders/classMailerSender_PHPMail.php", "annos": [] },
+	{"kind": "class", "name": "MailerSender_SQLTransactionProxy", "path": "./classes/senders/classMailerSender_SQLTransactionProxy.php", "annos": ["NeedLibrary lib-storage-sql"] },
+	{"kind": "iface", "name": "IMailerSender", "path": "./classes/senders/interfaceIMailerSender.php", "annos": [] },
+	{"kind": "class", "name": "MailerApplicationComponent", "path": "./classes/classMailerApplicationComponent.php", "annos": [] },
+	{"kind": "iface", "name": "IMailerContentSupplier", "path": "./classes/interfaceIMailerContentSupplier.php", "annos": [] },
+	{"kind": "class", "name": "MailerMail", "path": "./classes/classMailerMail.php", "annos": [] },
+	{"kind": "class", "name": "MailerAttachment", "path": "./classes/classMailerAttachment.php", "annos": [] }
+]

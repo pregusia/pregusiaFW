@@ -1,0 +1,22 @@
+[
+	{"kind": "iface", "name": "ISQLConnector", "path": "./classes/connectors/interfaceISQLConnector.php", "annos": [] },
+	{"kind": "class", "name": "SQLException", "path": "./classes/exceptions/classSQLException.php", "annos": [] },
+	{"kind": "class", "name": "SQLStorageApplicationComponent", "path": "./classes/classSQLStorageApplicationComponent.php", "annos": [] },
+	{"kind": "iface", "name": "ISQLValueEscaper", "path": "./classes/interfaceISQLValueEscaper.php", "annos": [] },
+	{"kind": "iface", "name": "ISQLResultsSet", "path": "./classes/results/interfaceISQLResultsSet.php", "annos": [] },
+	{"kind": "class", "name": "BaseSQLTypesMapper", "path": "./classes/types/classBaseSQLTypesMapper.php", "annos": [] },
+	{"kind": "class", "name": "SQLTypesMapper", "path": "./classes/types/classSQLTypesMapper.php", "annos": [] },
+	{"kind": "class", "name": "SQLQueryErrorException", "path": "./classes/exceptions/classSQLQueryErrorException.php", "annos": [] },
+	{"kind": "class", "name": "SQLResultsRow", "path": "./classes/results/classSQLResultsRow.php", "annos": [] },
+	{"kind": "iface", "name": "ISQLTypeMapper", "path": "./classes/types/interfaceISQLTypeMapper.php", "annos": [] },
+	{"kind": "class", "name": "SQLQueryUniqueException", "path": "./classes/exceptions/classSQLQueryUniqueException.php", "annos": [] },
+	{"kind": "class", "name": "SQLNamePair", "path": "./classes/classSQLNamePair.php", "annos": [] },
+	{"kind": "class", "name": "SQLQueryForeignKeyException", "path": "./classes/exceptions/classSQLQueryForeignKeyException.php", "annos": [] },
+	{"kind": "class", "name": "SQLTransactionSimpleCommitHook", "path": "./classes/transactions/classSQLTransactionSimpleCommitHook.php", "annos": [] },
+	{"kind": "class", "name": "DecimalSQLTypeMapper", "path": "./classes/types/classDecimalSQLTypeMapper.php", "annos": [] },
+	{"kind": "class", "name": "SQLStorage", "path": "./classes/classSQLStorage.php", "annos": [] },
+	{"kind": "class", "name": "SQLTransaction", "path": "./classes/transactions/classSQLTransaction.php", "annos": [] },
+	{"kind": "iface", "name": "ISQLTransactionHook", "path": "./classes/transactions/interfaceISQLTransactionHook.php", "annos": [] },
+	{"kind": "class", "name": "SQLResultsColumn", "path": "./classes/results/classSQLResultsColumn.php", "annos": [] },
+	{"kind": "class", "name": "SQLTypeEnum", "path": "./classes/results/enumSQLType.php", "annos": [] }
+]

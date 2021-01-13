@@ -1,0 +1,5 @@
+[
+	{"kind": "class", "name": "SQLConnector_mysqli_resultsset", "path": "./classes/classSQLConnector_mysqli_resultsset.php", "annos": [] },
+	{"kind": "class", "name": "SQLConnector_mysqli_cluster", "path": "./classes/classSQLConnector_mysqli_cluster.php", "annos": [] },
+	{"kind": "class", "name": "SQLConnector_mysqli_single", "path": "./classes/classSQLConnector_mysqli_single.php", "annos": [] }
+]

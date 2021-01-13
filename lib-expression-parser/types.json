@@ -1,0 +1,14 @@
+[
+	{"kind": "iface", "name": "IExpressionParserEvaluator", "path": "./classes/values/interfaceIExpressionParserEvaluator.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_BinaryOperator", "path": "./classes/ast/classExpressionParser_BinaryOperator.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Exception", "path": "./classes/classExpressionParser_Exception.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Tokenizer", "path": "./classes/tokenizer/classExpressionParser_Tokenizer.php", "annos": [] },
+	{"kind": "iface", "name": "IExpressionParserEvaluable", "path": "./classes/values/interfaceIExpressionParserEvaluable.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Primitive", "path": "./classes/ast/classExpressionParser_Primitive.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_UnaryOperator", "path": "./classes/ast/classExpressionParser_UnaryOperator.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Parser", "path": "./classes/ast/classExpressionParser_Parser.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Value", "path": "./classes/values/classExpressionParser_Value.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_FunctionCall", "path": "./classes/ast/classExpressionParser_FunctionCall.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParser_Identifier", "path": "./classes/ast/classExpressionParser_Identifier.php", "annos": [] },
+	{"kind": "class", "name": "ExpressionParserEvaluator_BoolClosure", "path": "./classes/values/classExpressionParserEvaluator_BoolClosure.php", "annos": [] }
+]

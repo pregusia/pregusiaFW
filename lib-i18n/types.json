@@ -1,0 +1,20 @@
+[
+	{"kind": "class", "name": "LanguageEnum", "path": "./classes/enumLanguageEnum.php", "annos": [] },
+	{"kind": "class", "name": "ORMField_I18NText", "path": "./classes/orm/classORMField_I18NText.php", "annos": ["NeedLibrary lib-orm"] },
+	{"kind": "class", "name": "GetTextMOReader", "path": "./classes/populators/classGetTextMOReader.php", "annos": [] },
+	{"kind": "class", "name": "I18NGetTextMOTranslationsPopulator", "path": "./classes/populators/classI18NGetTextMOTranslationsPopulator.php", "annos": [] },
+	{"kind": "class", "name": "I18NMetaStringTagsHandler", "path": "./classes/classI18NMetaStringTagsHandler.php", "annos": [] },
+	{"kind": "class", "name": "UIWidget_I18NTextInput", "path": "./classes/ui/classUIWidget_I18NTextInput.php", "annos": ["NeedLibrary lib-web-ui"] },
+	{"kind": "class", "name": "I18NTranslation", "path": "./classes/classI18NTranslation.php", "annos": [] },
+	{"kind": "class", "name": "I18NWebUIExtension", "path": "./classes/ui/classI18NWebUIExtension.php", "annos": ["NeedLibrary lib-web-ui"] },
+	{"kind": "iface", "name": "II18NTranslationsPopulator", "path": "./classes/populators/interfaceII18NTranslationsPopulator.php", "annos": [] },
+	{"kind": "class", "name": "I18NTemplateRenderableMod", "path": "./classes/tpl/classI18NTemplateRenderableMod.php", "annos": ["NeedLibrary lib-templating"] },
+	{"kind": "class", "name": "UIWidget_I18NStringInput", "path": "./classes/ui/classUIWidget_I18NStringInput.php", "annos": ["NeedLibrary lib-web-ui"] },
+	{"kind": "class", "name": "I18NJsonTranslationsPopulator", "path": "./classes/populators/classI18NJsonTranslationsPopulator.php", "annos": [] },
+	{"kind": "class", "name": "I18NXmlTranslationsPopulator", "path": "./classes/populators/classI18NXmlTranslationsPopulator.php", "annos": [] },
+	{"kind": "class", "name": "I18NApplicationComponent", "path": "./classes/classI18NApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "ORMField_I18NString", "path": "./classes/orm/classORMField_I18NString.php", "annos": ["NeedLibrary lib-orm"] },
+	{"kind": "class", "name": "I18NString", "path": "./classes/classI18NString.php", "annos": [] },
+	{"kind": "class", "name": "CountryEnum", "path": "./classes/enumCountryEnum.php", "annos": [] },
+	{"kind": "class", "name": "I18NTemplatingEngineExtension", "path": "./classes/tpl/classI18NTemplatingEngineExtension.php", "annos": ["NeedLibrary lib-templating"] }
+]

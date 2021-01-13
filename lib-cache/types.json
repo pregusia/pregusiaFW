@@ -1,0 +1,9 @@
+[
+	{"kind": "class", "name": "CacheApplicationComponnet", "path": "./classes/classCacheApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "CacheMechanism_Memcached", "path": "./classes/mechanisms/classCacheMechanism_Memcached.php", "annos": [] },
+	{"kind": "class", "name": "CacheMechanism_FileSystem", "path": "./classes/mechanisms/classCacheMechanism_FileSystem.php", "annos": [] },
+	{"kind": "class", "name": "CacheMechanism_SQLStorage", "path": "./classes/mechanisms/classCacheMechanism_SQLStorage.php", "annos": ["NeedLibrary lib-storage-sql"] },
+	{"kind": "class", "name": "CacheMechanism_RuntimeMemory", "path": "./classes/mechanisms/classCacheMechanism_RuntimeMemory.php", "annos": [] },
+	{"kind": "trait", "name": "TRuntimeCacheClient", "path": "./classes/traitTRuntimeCacheClient.php", "annos": [] },
+	{"kind": "iface", "name": "ICacheMechanism", "path": "./classes/interfaceICacheMechanism.php", "annos": [] }
+]
