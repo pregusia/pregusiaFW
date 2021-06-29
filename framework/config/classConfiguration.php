@@ -39,7 +39,13 @@ class Configuration {
 		if (!$name) throw new InvalidArgumentException('Name cannot be empty !');
 		
 		$tmp = $this->config;
-		foreach(explode('.',$name) as $p) $tmp = $tmp[$p];
+		foreach(explode('.',$name) as $p) {
+			if (is_array($tmp) && isset($tmp[$p])) {
+				$tmp = $tmp[$p];
+			} else {
+				$tmp = null;
+			}
+		}
 		return $tmp;
 	}
 	
@@ -168,9 +174,18 @@ class Configuration {
 		
 		$oXml = new SimpleXMLElement(file_get_contents($fileName));
 		foreach($oXml->config as $oNode) {
+			false && $oNode = new SimpleXMLElement();
+			
 			$name = (string)$oNode['name'];
-			$value = (string)$oNode['value'];
-			$this->setValue($name, $value);
+			$value1 = (string)$oNode['value'];
+			$value2 = (string)$oNode;
+			
+			if ($value1) {
+				$this->setValue($name, $value1);
+			}
+			elseif ($value2) {
+				$this->setValue($name, $value2);
+			}
 		}
 		
 		return true;
@@ -217,13 +232,61 @@ class Configuration {
 	//************************************************************************************
 	public function loadDirectory($path) {
 		$path = rtrim($path,'/') . '/';
+		if (!is_dir($path)) throw new IOException(sprintf('Path %s is not directory', $path));
+		
 		$oIterator = new DirectoryIterator($path);
 		foreach($oIterator as $oFile) {
 			false && $oFile = new SplFileInfo();
 			if ($oFile->getExtension() == 'xml') $this->loadFromXML($oFile->getPathname());
 			if ($oFile->getExtension() == 'json') $this->loadFromJSON($oFile->getPathname());
 		}
+	}
+	
+	//************************************************************************************
+	public function loadDirectoryWithVariant($path, $variant) {
+		$path = rtrim($path,'/') . '/';
+		$variant = trim($variant);
+		if (!is_dir($path)) throw new IOException(sprintf('Path %s is not directory', $path));
+		if (!$variant) throw new InvalidArgumentException('Empty variant');
+		if (strpos($variant, '/') !== false) throw new InvalidArgumentException('Invalid variant name format');
+		if (strpos($variant, '.') !== false) throw new InvalidArgumentException('Invalid variant name format');
 		
+		if (is_dir($path . $variant)) {
+			// ok, to sobie ustalamy co zaladowac
+			
+			$filesToLoad = array();
+			
+			if (true) {
+				$oIterator = new DirectoryIterator($path);
+				foreach($oIterator as $oFile) {
+					false && $oFile = new SplFileInfo();
+					if ($oFile->getExtension() == 'xml' || $oFile->getExtension() == 'json') {
+						$filesToLoad[basename($oFile->getFilename())] = $oFile->getPathname();
+					}
+				}
+			}
+			if (true) {
+				$oIterator = new DirectoryIterator($path . $variant);
+				foreach($oIterator as $oFile) {
+					false && $oFile = new SplFileInfo();
+					if ($oFile->getExtension() == 'xml' || $oFile->getExtension() == 'json') {
+						$filesToLoad[basename($oFile->getFilename())] = $oFile->getPathname();
+					}
+				}
+			}
+			
+			foreach($filesToLoad as $path) {
+				if (substr($path,-4) == '.xml') {
+					$this->loadFromXML($path);
+				}
+				if (substr($path,-5) == '.json') {
+					$this->loadFromJSON($path);
+				}
+			}
+			
+		} else {
+			$this->loadDirectory($path);
+		}
 	}
 	
 	//************************************************************************************

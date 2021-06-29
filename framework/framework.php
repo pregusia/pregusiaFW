@@ -51,41 +51,46 @@ require_once __DIR__ . '/classDebugger.php';
 require_once __DIR__ . '/classLogger.php';
 
 
-
-
-function __autoload($typeName) {
+spl_autoload_register(function($typeName){
 	CodeBase::LoadType($typeName);
-}
-
+});
 
 
 class Framework {
 	
 	//************************************************************************************
-	public static function fatalErrorFallbackDisplay($v) {
+	public static function fatalErrorFallbackDisplay($v, $print=true, $errorLog=true, $full=true) {
 		// nie mozemy uzyc tutaj zadnych z funkcji, bo jeszcze wsio nie jest stworzone
 		// musimy w tradycyjny sposob
 		header('Content-Type: text/plain');
 		http_response_code(500);
 
 		if ($v instanceof Exception) {
-			$arr = UtilsExceptions::toArray($v);
-			$res = '';
-			foreach($arr as $k => $v) {
-				$res .= sprintf("%s:\n", $k);
-				
-				foreach(explode("\n",$v) as $a) {
-					$res .= sprintf("     %s\n", $a);
+			if ($full) {
+				$arr = UtilsExceptions::toArray($v);
+				$res = '';
+				foreach($arr as $k => $v) {
+					$res .= sprintf("%s:\n", $k);
+					
+					foreach(explode("\n",$v) as $a) {
+						$res .= sprintf("     %s\n", $a);
+					}
+					
+					$res .= "\n\n";
 				}
-				
-				$res .= "\n\n";
+			} else {
+				$res = sprintf("ERROR: %s", UtilsExceptions::toString($v));
 			}
 		} else {
 			$res = strval($v);
 		}
 		
-		error_log($res);
-		printf("%s\n",$res);
+		if ($errorLog) {
+			error_log($res);
+		}
+		if ($print) {
+			printf("%s\n",$res);
+		}
 		exit(1);
 	}
 	

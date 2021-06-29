@@ -115,6 +115,7 @@ final class UIController extends WebController {
 		$oAssets->addJSLocation('lib-web-ui:js/ui.widget.SuggestInput.js');
 		$oAssets->addJSLocation('lib-web-ui:js/ui.widget.TagsInput.js');
 		$oAssets->addJSLocation('lib-web-ui:js/ui.widget.IntCollectionEnumerableInput.js');
+		$oAssets->addJSLocation('lib-web-ui:js/ui.widget.StringCollectionEnumerableInput.js');
 		
 		foreach($this->getUIComponent()->getUIExtensions() as $oExtension) {
 			$oExtension->prepareAssets($oAssets);

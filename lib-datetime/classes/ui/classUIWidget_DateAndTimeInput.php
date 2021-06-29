@@ -28,6 +28,8 @@
  */
 class UIWidget_DateAndTimeInput extends UIWidgetWithValue {
 	
+	private $tzName = '';
+	
 	//************************************************************************************
 	/**
 	 * @return DateAndTime
@@ -52,7 +54,11 @@ class UIWidget_DateAndTimeInput extends UIWidgetWithValue {
 	//************************************************************************************
 	public function getValueString() {
 		if ($this->value) {
-			return $this->getValue()->toString();
+			$oValue = $this->getValue();
+			if ($this->tzName != 'UTC') {
+				$oValue = $oValue->AddHours(TimeZonesEnum::getUTCOffset($this->tzName));
+			}
+			return $oValue->toString();
 		} else {
 			return '';
 		}
@@ -60,13 +66,18 @@ class UIWidget_DateAndTimeInput extends UIWidgetWithValue {
 	
 	//************************************************************************************
 	public function setValueString($str) {
-		$this->value = DateAndTime::FromString($str);
+		$oValue = DateAndTime::FromString($str);
+		if ($this->tzName != 'UTC') {
+			$oValue = $oValue->AddHours(-TimeZonesEnum::getUTCOffset($this->tzName));
+		}
+		$this->value = $oValue;
 	}
 	
 	//************************************************************************************
-	public function __construct($name, $caption) {
+	public function __construct($name, $caption, $tzName='UTC') {
 		parent::__construct($name, $caption);
 		$this->value = null;
+		$this->tzName = $tzName;
 	}
 	
 	//************************************************************************************
@@ -74,7 +85,11 @@ class UIWidget_DateAndTimeInput extends UIWidgetWithValue {
 	 * @param WebRequest $oRequest
 	 */
 	protected function onRead($oRequest) {
-		$this->value = DateAndTime::FromString($oRequest->getString($this->getName()));
+		$oValue = DateAndTime::FromString($oRequest->getString($this->getName()));
+		if ($this->tzName != 'UTC') {
+			$oValue = $oValue->AddHours(-TimeZonesEnum::getUTCOffset($this->tzName));
+		}
+		$this->value = $oValue;
 	}
 	
 	//************************************************************************************

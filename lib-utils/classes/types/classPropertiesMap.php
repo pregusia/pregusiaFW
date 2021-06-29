@@ -55,6 +55,18 @@ class PropertiesMap implements JsonSerializable, IteratorAggregate {
 	
 	//************************************************************************************
 	/**
+	 * @param string $key
+	 * @return string
+	 */
+	public function getOneIgnoringCase($key) {
+		foreach($this->values as $oPair) {
+			if (strtolower($oPair->getName()) == strtolower($key)) return $oPair->getValue();
+		}
+		return null;
+	}
+	
+	//************************************************************************************
+	/**
 	 * Zwraca wszystkie wartosci o podanym kluczu
 	 * @param string $key
 	 * @return string[]

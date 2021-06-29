@@ -274,6 +274,11 @@ abstract class UIForm implements ITemplateRenderableSupplier, IValidatable {
 				$this->oErrors->add($arg);
 			}
 		}
+		elseif ($arg instanceof ValidationException) {
+			foreach($arg as $oError) {
+				$this->addError($oError);
+			}
+		}
 		elseif ($arg instanceof Exception) {
 			$nr = count($this->getAllErrors()) + 1;
 			$oError = new ValidationError(sprintf('exception/e%d', $nr), 1, UtilsExceptions::toString($arg));

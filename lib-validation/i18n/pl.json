@@ -16,6 +16,8 @@
 	
 	"ValidatorMailAddress.invalid": "Nieprawidłowy adres e-mail",
 	
+	"ValidatorPhoneNumber.invalid": "Nieprawidłowy numer telefonu",
+	
 	"ValidatorNonEmpty.invalid": "Niepusta wartość jest wymagana",
 	
 	"ValidatorPassword.empty": "Hasło nie może być puste",
@@ -29,6 +31,8 @@
 
 	"ValidatorURL.invalid": "Niepoprawny adres URL",
 	
-	"ValidatorRegEx.invalid": "Nieprawidłowa wartość"
+	"ValidatorRegEx.invalid": "Nieprawidłowa wartość",
+	
+	"ValidatorIPv4Address.invalid": "Nieprawidłowa wartość"
 
 }

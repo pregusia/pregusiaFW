@@ -9,14 +9,15 @@
 	{"kind": "class", "name": "HTTPApplicationComponent", "path": "./classes/http/classHTTPApplicationComponent.php", "annos": [] },
 	{"kind": "class", "name": "HTTPCookie", "path": "./classes/http/classHTTPCookie.php", "annos": [] },
 	{"kind": "class", "name": "HTTPClientRequest_CURL", "path": "./classes/http/client/curl/classHTTPClientRequest_CURL.php", "annos": [] },
-	{"kind": "iface", "name": "IHTTPServerRequest", "path": "./classes/http/server/interfaceIHTTPServerRequest.php", "annos": [] },
 	{"kind": "class", "name": "HTTPSession", "path": "./classes/http/classHTTPSession.php", "annos": [] },
+	{"kind": "class", "name": "HTTPServerResponseCapturing", "path": "./classes/http/server/classHTTPServerResponseCapturing.php", "annos": [] },
+	{"kind": "iface", "name": "IHTTPServerResponse", "path": "./classes/http/server/interfaceIHTTPServerResponse.php", "annos": [] },
+	{"kind": "class", "name": "HTTPException", "path": "./classes/http/classHTTPException.php", "annos": [] },
+	{"kind": "iface", "name": "IHTTPServerRequest", "path": "./classes/http/server/interfaceIHTTPServerRequest.php", "annos": [] },
 	{"kind": "class", "name": "UtilsHTTP", "path": "./classes/http/classUtilsHTTP.php", "annos": [] },
 	{"kind": "class", "name": "AsyncEventRunnable_HTTPClientCURL", "path": "./classes/http/client/curl/classAsyncEventRunnable_HTTPClientCURL.php", "annos": ["NeedLibrary lib-async"] },
 	{"kind": "class", "name": "HTTPRequestFile", "path": "./classes/http/classHTTPRequestFile.php", "annos": [] },
 	{"kind": "class", "name": "HTTPServerRequestPHP", "path": "./classes/http/server/classHTTPServerRequestPHP.php", "annos": [] },
-	{"kind": "class", "name": "HTTPServerResponseCapturing", "path": "./classes/http/server/classHTTPServerResponseCapturing.php", "annos": [] },
 	{"kind": "iface", "name": "IHTTPClientRequest", "path": "./classes/http/client/interfaceIHTTPClientRequest.php", "annos": [] },
-	{"kind": "iface", "name": "IHTTPServerResponse", "path": "./classes/http/server/interfaceIHTTPServerResponse.php", "annos": [] },
 	{"kind": "class", "name": "HTTPCookiesContainer", "path": "./classes/http/classHTTPCookiesContainer.php", "annos": [] }
 ]

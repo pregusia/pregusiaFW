@@ -71,9 +71,9 @@ class AsyncEventsApplicationComponent extends ApplicationComponent {
 			}
 			
 			$eventType = $this->getApplicationContext()->getCLIArgumentByName('eventType');
-			
-			if ($eventType) {
-				$this->processEvent(AsyncEventWrapper::CreateFromRaw($eventType, $eventData));
+			$oEvent = AsyncEventWrapper::CreateFromRaw($eventType, $eventData);
+			if ($oEvent->getEventType()) {
+				$this->processEvent($oEvent);
 			}
 		}
 	}

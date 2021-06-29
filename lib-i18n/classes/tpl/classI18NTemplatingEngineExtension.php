@@ -65,11 +65,37 @@ class I18NTemplatingEngineExtension implements ITemplatingEngineExtension {
 	public function onAdaptRenderer($oRenderer) {
 		$self = $this;
 		
-		$oRenderer->registerFunction('__', function($singular, $plural='', $count=0) use ($self) {
+		$oRenderer->registerFunction('__', function($oRenderer, $singular, $plural='', $count=0) use ($self) {
 			return $self->getI18N()->translate($singular, $plural, $count);
 		});
-		$oRenderer->registerFunction('getLang', function($name) use ($self) {
-			return $self->getI18N()->translate($name);
+		$oRenderer->registerFunction('getLang', function($oRenderer, $wordName) use ($self) {
+			$args = func_get_args();
+			$params = array();
+			if (count($args) > 2) {
+				// mamy jakies parametry, wiec paczymy co tam jest
+				// kazdy array przypisujemy calosciowo
+				// kazdy 'name=' traktujemy jako przypisanie do tej wartosci
+				
+				for($i=2;$i<count($args);++$i) {
+					if (is_array($args[$i])) {
+						foreach($args[$i] as $k => $v) {
+							$params[$k] = $v;
+						}
+					}
+					if (is_string($args[$i]) && UtilsString::endsWith($args[$i], '=')) {
+						$name = rtrim($args[$i], '=');
+						$val = strval($args[++$i]);
+						$params[$name] = $val;
+					}
+				}
+			}
+			
+			$res = $self->getI18N()->translate($wordName);
+			if ($params) {
+				return UtilsString::formatSimple($res, $params);
+			} else {
+				return $res;
+			}
 		});
 	}
 	

@@ -20,11 +20,11 @@
  */
 
 
-class SQLQueryErrorException extends SQLException {
+class SQLQueryErrorException extends SQLException implements JsonSerializable {
 	
-	private $errorNo;
-	private $errorText;
-	private $queryText;
+	protected $errorNo;
+	protected $errorText;
+	protected $queryText;
 
 	//************************************************************************************
 	public function getErrorNo() { return $this->errorNo; }
@@ -39,12 +39,26 @@ class SQLQueryErrorException extends SQLException {
 	public function infoQueryText() { return $this->queryText; }
 
 	//************************************************************************************
-	public function __construct($errNo, $errText, $queryText) {
+	public function __construct($errNo=0, $errText='', $queryText='') {
 		$this->errorNo = $errNo;
 		$this->errorText = $errText;
 		$this->queryText = $queryText;
 		
 		parent::__construct(sprintf('Error %d (%s) during query', $errNo, $errText));
+	}
+	
+	//************************************************************************************
+	public function jsonSerialize() {
+		return array(
+			'errorNo' => $this->errorNo,
+			'errorText' => $this->errorText,
+			'queryText' => $this->queryText	
+		);
+	}
+	
+	//************************************************************************************
+	public static function jsonUnserialize($arr) {
+		return new SQLQueryErrorException($arr['errorNo'], $arr['errorText'], $arr['queryText']);
 	}
 	
 }

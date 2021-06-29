@@ -68,6 +68,7 @@ class WebResponseTemplated extends WebResponseBase {
 		$content = $oComponent->renderTemplateFromLocation($this->templateLocation, $this->templateVars);
 		
 		$oHttpResponse->setContentType($this->contentType);
+		$oHttpResponse->setStatusCode($this->getHttpCode());
 		$oHttpResponse->pushOutputFunction(function() use ($content){
 			print($content);
 		});

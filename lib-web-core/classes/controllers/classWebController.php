@@ -111,6 +111,15 @@ abstract class WebController {
 		return $oResponse;
 	}
 	
+	//************************************************************************************
+	/**
+	 * @param WebActionDefinition $oActionDef
+	 * @param Exception $oException
+	 * @return WebResponseBase
+	 */
+	public function onException($oActionDef, $oException) {
+		return null;
+	}
 	
 }
 

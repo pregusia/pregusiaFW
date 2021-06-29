@@ -33,6 +33,7 @@ class AsyncEventRunnable_HTTPClientCURL implements IAsyncEventRunnable {
 	private $sslKeyPath = "";
 	private $sslCertPath = "";
 	private $sslVerify = false;
+	private $followRedirects = true;
 	private $outgoingInterface = "";
 	private $oHeaders = null;
 	private $oCookies = null;
@@ -85,6 +86,13 @@ class AsyncEventRunnable_HTTPClientCURL implements IAsyncEventRunnable {
 	 */
 	public function getSSLVerify() { return $this->sslVerify; }
 	public function setSSLVerify($v) { $this->sslVerify = $v; }
+	
+	//************************************************************************************
+	/**
+	 * @return bool
+	 */
+	public function getFollowRedirects() { return $this->followRedirects; }
+	public function setFollowRedirects($v) { $this->followRedirects = $v; }
 	
 	//************************************************************************************
 	/**
@@ -142,6 +150,7 @@ class AsyncEventRunnable_HTTPClientCURL implements IAsyncEventRunnable {
 			"sslKeyPath" => $this->sslKeyPath,
 			"sslCertPath" => $this->sslCertPath,
 			"sslVerify" => $this->sslVerify,
+			'followRedirects' => $this->followRedirects,
 			"outgoingInterface" => $this->outgoingInterface,
 			"oHeaders" => $this->oHeaders->jsonSerialize(),
 			"oCookies" => $this->oCookies->jsonSerialize(),
@@ -170,6 +179,7 @@ class AsyncEventRunnable_HTTPClientCURL implements IAsyncEventRunnable {
 			$obj->sslKeyPath = strval($arr["sslKeyPath"]);
 			$obj->sslCertPath = strval($arr["sslCertPath"]);
 			$obj->sslVerify = boolval($arr["sslVerify"]);
+			$obj->followRedirects = boolval($arr["followRedirects"]);
 			$obj->outgoingInterface = strval($arr["outgoingInterface"]);
 			$obj->oHeaders = PropertiesMap::jsonUnserialize($arr["oHeaders"]);
 			$obj->oCookies = HTTPCookiesContainer::jsonUnserialize($arr["oCookies"]);
@@ -195,6 +205,7 @@ class AsyncEventRunnable_HTTPClientCURL implements IAsyncEventRunnable {
 			$oClient->setSSLCertPath($this->sslCertPath);
 			$oClient->setSSLKeyPath($this->sslKeyPath);
 			$oClient->setSSLVerify($this->sslVerify);
+			$oClient->setFollowRedirects($this->followRedirects);
 			$oClient->setHTTPAuth($this->oHTTPAuth);
 			$oClient->getHeaders()->putMultiPairs($this->getHeaders()->getNameValuePairs());
 			$oClient->setRequestContent($this->requestContent);

@@ -5,11 +5,11 @@
 		{if $Widget['hasSuffix'] || $Widget['hasPrefix']}
 		<div class="input-group">
 			{if $Widget['hasPrefix']} <span class="input-group-addon"> {$Widget['prefix']} </span> {endif}
-			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value']}" />
+			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value']}" placeholder="{$Widget['placeholder']}" />
 			{if $Widget['hasSuffix']} <span class="input-group-addon"> {$Widget['suffix']} </span> {endif}
 		</div>
 		{else}
-		<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value']}" />
+		<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value']}" placeholder="{$Widget['placeholder']}" />
 		{endif}
 		
 		{if $Widget['hasDescription']}

@@ -60,6 +60,7 @@
 
 
 .ui-widget-Checkboxes .checkbox label { font-size: 1.5em; padding-left: 0px; line-height: 1.3em; }
+.ui-widget-SingleCheckbox .checkbox label { font-size: 1.5em; padding-left: 0px; line-height: 1.3em; }
 .ui-widget-FlagsInput .checkbox label { font-size: 1.5em; padding-left: 0px; line-height: 1.3em; }
 .ui-widget-RadioGroup .radio label { font-size: 1.5em; padding-left: 0px; line-height: 1.3em; }
 

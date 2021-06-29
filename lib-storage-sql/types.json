@@ -1,6 +1,7 @@
 [
 	{"kind": "iface", "name": "ISQLConnector", "path": "./classes/connectors/interfaceISQLConnector.php", "annos": [] },
 	{"kind": "class", "name": "SQLException", "path": "./classes/exceptions/classSQLException.php", "annos": [] },
+	{"kind": "class", "name": "CLICommandHandler_DBTest", "path": "./classes/cli/classCLICommandHandler_DBTest.php", "annos": ["NeedLibrary lib-cli"] },
 	{"kind": "class", "name": "SQLStorageApplicationComponent", "path": "./classes/classSQLStorageApplicationComponent.php", "annos": [] },
 	{"kind": "iface", "name": "ISQLValueEscaper", "path": "./classes/interfaceISQLValueEscaper.php", "annos": [] },
 	{"kind": "iface", "name": "ISQLResultsSet", "path": "./classes/results/interfaceISQLResultsSet.php", "annos": [] },
@@ -18,5 +19,6 @@
 	{"kind": "class", "name": "SQLTransaction", "path": "./classes/transactions/classSQLTransaction.php", "annos": [] },
 	{"kind": "iface", "name": "ISQLTransactionHook", "path": "./classes/transactions/interfaceISQLTransactionHook.php", "annos": [] },
 	{"kind": "class", "name": "SQLResultsColumn", "path": "./classes/results/classSQLResultsColumn.php", "annos": [] },
-	{"kind": "class", "name": "SQLTypeEnum", "path": "./classes/results/enumSQLType.php", "annos": [] }
+	{"kind": "class", "name": "SQLTypeEnum", "path": "./classes/results/enumSQLType.php", "annos": [] },
+	{"kind": "class", "name": "CLICommandHandler_DBExec", "path": "./classes/cli/classCLICommandHandler_DBExec.php", "annos": ["NeedLibrary lib-cli"] }
 ]

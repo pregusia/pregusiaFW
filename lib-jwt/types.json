@@ -1,0 +1,11 @@
+[
+	{"kind": "class", "name": "JWTException", "path": "./classes/classJWTException.php", "annos": [] },
+	{"kind": "class", "name": "OpenSSLKey", "path": "./classes/classOpenSSLKey.php", "annos": [] },
+	{"kind": "iface", "name": "IJWTKey", "path": "./classes/interfaceIJWTKey.php", "annos": [] },
+	{"kind": "class", "name": "JWT", "path": "./classes/classJWT.php", "annos": [] },
+	{"kind": "class", "name": "JWTKeySHA", "path": "./classes/classJWTKeySHA.php", "annos": [] },
+	{"kind": "class", "name": "JWTPayload", "path": "./classes/classJWTPayload.php", "annos": [] },
+	{"kind": "class", "name": "JWTClaimSet", "path": "./classes/classJWTClaimSet.php", "annos": [] },
+	{"kind": "class", "name": "JWTHeader", "path": "./classes/classJWTHeader.php", "annos": [] },
+	{"kind": "class", "name": "JWTKeyRSA", "path": "./classes/classJWTKeyRSA.php", "annos": [] }
+]

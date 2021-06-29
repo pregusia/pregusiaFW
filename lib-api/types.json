@@ -1,14 +1,19 @@
 [
+	{"kind": "iface", "name": "IRemoteServiceAuthAcceptorVariableResolver", "path": "./classes/auth/acceptor/interfaceIRemoteServiceAuthAcceptorVariableResolver.php", "annos": [] },
 	{"kind": "class", "name": "RemoteServiceException", "path": "./classes/classRemoteServiceException.php", "annos": [] },
 	{"kind": "class", "name": "APIServerRequest", "path": "./classes/classAPIServerRequest.php", "annos": [] },
 	{"kind": "iface", "name": "IRemoteService", "path": "./classes/interfaceIRemoteService.php", "annos": [] },
 	{"kind": "class", "name": "UtilsAPI", "path": "./classes/classUtilsAPI.php", "annos": [] },
 	{"kind": "class", "name": "RemoteServiceSupplier", "path": "./classes/classRemoteServiceSupplier.php", "annos": [] },
-	{"kind": "iface", "name": "IRemoteServiceAuthData", "path": "./classes/interfaceIRemoteServiceAuthData.php", "annos": [] },
+	{"kind": "class", "name": "RemoteServiceAuthData_JWTToken", "path": "./classes/auth/classRemoteServiceAuthData_JWTToken.php", "annos": [] },
+	{"kind": "iface", "name": "IRemoteServiceAuthData", "path": "./classes/auth/interfaceIRemoteServiceAuthData.php", "annos": [] },
 	{"kind": "class", "name": "RemoteServiceClient", "path": "./classes/classRemoteServiceClient.php", "annos": [] },
+	{"kind": "class", "name": "RemoteServiceAuthData_Basic", "path": "./classes/auth/classRemoteServiceAuthData_Basic.php", "annos": [] },
 	{"kind": "iface", "name": "not", "path": "./classes/classRemoteServiceClient.php", "annos": [] },
 	{"kind": "class", "name": "APIProcessingErrorException", "path": "./classes/classAPIProcessingErrorException.php", "annos": [] },
 	{"kind": "class", "name": "APIPaginatedResults", "path": "./classes/classAPIPaginatedResults.php", "annos": [] },
+	{"kind": "class", "name": "RemoteServiceAuthAcceptor", "path": "./classes/auth/acceptor/classRemoteServiceAuthAcceptor.php", "annos": [] },
 	{"kind": "class", "name": "APIApplicationComponent", "path": "./classes/classAPIApplicationComponent.php", "annos": [] },
-	{"kind": "class", "name": "RemoteServiceAuthData_String", "path": "./classes/classRemoteServiceAuthData_String.php", "annos": [] }
+	{"kind": "class", "name": "RemoteServiceAuthData_String", "path": "./classes/auth/classRemoteServiceAuthData_String.php", "annos": [] },
+	{"kind": "class", "name": "RemoteServiceAuthDataFactory", "path": "./classes/auth/classRemoteSerivceAuthDataFactory.php", "annos": [] }
 ]

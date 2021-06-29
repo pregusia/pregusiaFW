@@ -29,13 +29,13 @@ class WebParameterType_encarr implements IWebParameterType {
 	
 	//************************************************************************************
 	public function unserialize($v) {
-		return UtilsString::urlSafeDecode($v, self::KEY);
+		return UtilsString::urlSafeDecrypt($v, self::KEY);
 	}
 	
 	//************************************************************************************
 	public function serialize($v) {
 		if (is_array($v)) {
-			return UtilsString::urlSafeEncode($v, self::KEY);
+			return UtilsString::urlSafeEncrypt($v, self::KEY);
 		} else {
 			return '';
 		}

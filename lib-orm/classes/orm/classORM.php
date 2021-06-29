@@ -150,7 +150,7 @@ class ORM implements IClassInstantinatorAdapter {
 	public function registerRelation($name, $sideOne, $sideTwo, $flags=0) {
 		$name = trim($name);
 		if (!$name) throw new InvalidArgumentException('Empty name');
-		if ($this->relations[$name]) throw new InvalidArgumentException('Relation with name - ' . $name . ' - already registered');
+		if (isset($this->relations[$name])) throw new InvalidArgumentException('Relation with name - ' . $name . ' - already registered');
 		
 		if (!($sideOne instanceof ORMTableAndKeyPair)) throw new InvalidArgumentException('sideOne is not ORMTableAndKeyPair');
 		if (!($sideTwo instanceof ORMTableAndKeyPair)) throw new InvalidArgumentException('sideTwo is not ORMTableAndKeyPair');

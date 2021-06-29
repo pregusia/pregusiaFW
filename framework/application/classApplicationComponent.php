@@ -31,6 +31,11 @@ abstract class ApplicationComponent {
 	 */
 	private $extensions = array();
 	
+	/**
+	 * @var IApplicationComponentExtension[]
+	 */
+	private $extensionsCascades = array();
+	
 	//************************************************************************************
 	/**
 	 * @return string
@@ -105,6 +110,64 @@ abstract class ApplicationComponent {
 		}
 		
 		return $this->extensions[$ifaceName];
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param string $ifaceName
+	 * @return IApplicationComponentExtension[]
+	 */
+	public function getExtensionCascade($ifaceName) {
+		if (!isset($this->extensionsCascades[$ifaceName])) {
+			$oInterface = CodeBase::getInterface($ifaceName);
+			if (!$oInterface->isExtending('IApplicationComponentExtension')) throw new InvalidArgumentException(sprintf('Interface %s is not extending IApplicationComponentExtension', $ifaceName));
+			
+			$className = sprintf('%s_cascade', $ifaceName);
+			
+			$code = array();
+			$code[] = sprintf('class %s implements %s {', $className, $ifaceName);
+			$code[] = ' private $component = null; ';
+			$code[] = ' public function __construct($component) { $this->component = $component; } ';
+			
+			foreach($oInterface->getReflectionType()->getMethods() as $oMethod) {
+				false && $oMethod = new ReflectionMethod();
+	
+				$nr = 0;
+				$argsNames = array();
+				foreach($oMethod->getParameters() as $oParameter) {
+					$argName = sprintf('$p%02d',$nr);
+					if ($oParameter->isDefaultValueAvailable()) {
+						$defVal = $oParameter->getDefaultValue();
+						switch(strtolower(gettype($defVal))) {
+							case 'integer': $argName .= sprintf('=%d', $defVal); break;
+							case 'double': $argName .= sprintf('=%.4f', $defVal); break;
+							case 'string': $argName .= sprintf('="%s"', $defVal); break;
+							case 'boolean': $argName .= sprintf('=%s', $defVal ? 'true' : 'false'); break;
+							case 'null': $argName .= '=null';
+							default: $argName .= '=null';
+						}
+					}
+					$argsNames[] = $argName;
+					$nr += 1;
+				}
+				
+				$code[] = sprintf('public function %s(%s) { $args = func_get_args(); foreach($this->component->getExtensions("%s") as $o) { call_user_func_array(array($o,"%s"), $args); } }',
+					$oMethod->getName(),
+					implode(', ', $argsNames),
+					$ifaceName,
+					$oMethod->getName()
+				);
+			}
+			
+			$code[] = '}';			
+			
+			eval(implode("\n",$code));
+			
+			$oClass = new ReflectionClass($className);
+			$this->extensionsCascades[$ifaceName] = $oClass->newInstance($this);			
+		}
+		
+		return $this->extensionsCascades[$ifaceName];
 	}
 	
 	//************************************************************************************

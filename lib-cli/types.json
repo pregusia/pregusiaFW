@@ -1,0 +1,5 @@
+[
+	{"kind": "class", "name": "CLICommandsHandlerApplicationComponent", "path": "./classes/classCLICommandsHandlerApplicationComponent.php", "annos": [] },
+	{"kind": "class", "name": "CLIArgumentBinder", "path": "./classes/classCLIArgumentBinder.php", "annos": [] },
+	{"kind": "iface", "name": "ICLICommandHandler", "path": "./classes/interfaceICLICommandHandler.php", "annos": [] }
+]

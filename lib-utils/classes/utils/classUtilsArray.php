@@ -335,6 +335,41 @@ class UtilsArray {
 		return true;
 	}
 	
+	//************************************************************************************
+	/**
+	 * @param array $arr
+	 * @return int[]
+	 */
+	public static function prepareIDs($arr) {
+		$res = array();
+		if (is_array($arr)) {
+			foreach($arr as $v) {
+				$v = intval($v);
+				if ($v > 0) {
+					$res[] = $v;
+				}
+			}
+		}
+		return $res;
+	}
+	
+	//************************************************************************************
+	/**
+	 * Dodaje do $res wartosc $value
+	 * Nie zachowuje kluczy
+	 * 
+	 * @param array $res
+	 * @param array $value
+	 */
+	public static function pushToArray(&$res, $value) {
+		if (!is_array($res)) throw new InvalidArgumentException('res is not array');
+		if (!is_array($value)) throw new InvalidArgumentException('value is not array');
+		
+		foreach($value as $v) {
+			$res[] = $v;
+		}
+	}
+	
 }
 
 ?>

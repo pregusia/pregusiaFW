@@ -33,9 +33,9 @@ abstract class RemoteServiceClient {
 	private $oHTTPClient = null;
 	
 	/**
-	 * @var mixed
+	 * @var IRemoteServiceAuthData
 	 */
-	private $authData = null;
+	private $oAuthData = null;
 	
 	
 	/**
@@ -50,7 +50,13 @@ abstract class RemoteServiceClient {
 	
 	
 	//************************************************************************************
-	protected function __construct($oInterface, $oHTTPClient, $authData) {
+	/**
+	 * @param ReflectionClass $oInterface
+	 * @param IHTTPClientRequest $oHTTPClient
+	 * @param IRemoteServiceAuthData $oAuthData
+	 * @throws InvalidArgumentException
+	 */
+	protected function __construct($oInterface, $oHTTPClient, $oAuthData) {
 		if (!($oInterface instanceof ReflectionClass)) throw new InvalidArgumentException('oInterface is not ReflectionClass');
 		if (!$oInterface->isInterface()) throw new InvalidArgumentException('Given argument is not interface');
 		if (!$oInterface->implementsInterface('IRemoteService')) throw new InvalidArgumentException('Given interface not implements IRemoteService');
@@ -59,7 +65,10 @@ abstract class RemoteServiceClient {
 		if (!($oHTTPClient instanceof IHTTPClientRequest)) throw new InvalidArgumentException('oHTTPClient is not IHTTPClientRequet');
 		$this->oHTTPClient = $oHTTPClient;
 		
-		$this->authData = $authData;
+		if ($oAuthData) {
+			if (!($oAuthData instanceof IRemoteServiceAuthData)) throw new InvalidArgumentException('oAuthData is not IRemoteServiceAuthData');
+			$this->oAuthData = $oAuthData;
+		}
 	}
 	
 	//************************************************************************************
@@ -142,6 +151,14 @@ abstract class RemoteServiceClient {
 		$this->oHTTPClient->setMethod(HTTPMethod::POST);
 		$this->oHTTPClient->setContentType('application/json');
 		$this->oHTTPClient->setRequestContent(json_encode($jsonRequest));
+		
+		if ($this->oAuthData) {
+			$headerValue = $this->oAuthData->headerSerialize();
+			if ($headerValue) {
+				$this->oHTTPClient->getHeaders()->putSingle('Authorization', $headerValue);
+			}
+		}
+		
 		$content = $this->oHTTPClient->run()->getContentString();
 		
 		
@@ -168,7 +185,6 @@ abstract class RemoteServiceClient {
 			'id' => $requestId,
 			'method' => $methodName,
 			'params' => $args,
-			'auth' => UtilsAPI::serializeAuthData($this->authData)
 		);
 		
 		$content = $this->callHTTPOrCache($methodName, $jsonRequest);
@@ -219,10 +235,10 @@ abstract class RemoteServiceClient {
 	 * @param ReflectionClass $oInterface
 	 * @param CodeBaseDeclaredInterface $oInterface
 	 * @param IHTTPClientRequest $oHTTPClient
-	 * @param mixed $authData
+	 * @param IRemoteServiceAuthData $oAuthData
 	 * @return RemoteServiceClient
 	 */
-	public static function Create($oInterface, $oHTTPClient, $authData=null) {
+	public static function Create($oInterface, $oHTTPClient, $oAuthData=null) {
 		if ($oInterface instanceof CodeBaseDeclaredInterface) {
 			$oInterface = $oInterface->getReflectionType();
 		}
@@ -236,12 +252,9 @@ abstract class RemoteServiceClient {
 		if (!$oInterface->isInterface()) throw new InvalidArgumentException('Given argument is not interface');
 		if (!$oInterface->implementsInterface('IRemoteService')) throw new InvalidArgumentException('Given interface not implements IRemoteService');
 		if (!($oHTTPClient instanceof IHTTPClientRequest)) throw new InvalidArgumentException('oHTTPClient is not IHTTPClientRequet');
-		
-		if (!$authData) {
-			$v = ApplicationContext::getCurrent()->getConfig()->getValue('api.client.defaultAuth');
-			if ($v) {
-				$authData = $v;
-			}
+
+		if ($oAuthData) {
+			if (!($oAuthData instanceof IRemoteServiceAuthData)) throw new InvalidArgumentException('oAuthData is not IRemoteServiceAuthData');
 		}
 		
 		$className = sprintf('RemoteServiceClient_%s', $oInterface->getName());
@@ -286,7 +299,7 @@ abstract class RemoteServiceClient {
 		}
 		
 		$oClass = new ReflectionClass($className);
-		return $oClass->newInstanceArgs(array($oInterface, $oHTTPClient, $authData));
+		return $oClass->newInstanceArgs(array($oInterface, $oHTTPClient, $oAuthData));
 	}
 	
 }

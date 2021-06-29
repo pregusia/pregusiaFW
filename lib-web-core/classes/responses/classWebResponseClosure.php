@@ -35,6 +35,8 @@ class WebResponseClosure extends WebResponseBase {
 	 * @param IHTTPServerResponse $oHttpResponse
 	 */
 	public function finish($oHttpResponse) {
+		$oHttpResponse->setStatusCode($this->getHttpCode());
+		
 		$func = $this->oFunction;
 		$func($this, $oHttpResponse);
 	}

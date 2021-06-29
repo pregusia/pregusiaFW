@@ -52,6 +52,15 @@ class ORMField_Flags extends ORMField_Integer {
 	}
 	
 	//************************************************************************************
+	public function toggle($flag, $state) {
+		if ($state) {
+			$this->add($flag);
+		} else {
+			$this->remove($flag);
+		}
+	}
+	
+	//************************************************************************************
 	public function has($v) {
 		if ($this->isNull()) return false;
 		return ($this->get() & $v) == $v;

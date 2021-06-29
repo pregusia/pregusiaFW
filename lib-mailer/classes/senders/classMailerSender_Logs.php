@@ -69,6 +69,37 @@ class MailerSender_Logs implements IMailerSender {
 		return count($arr);
 	}
 	
+	//************************************************************************************
+	/**
+	 * @param MailerMail $oMail
+	 * @param string $templateID
+	 * @param array $variables
+	 * @param string[] $categories
+	 */
+	public function sendTemplate($oMail, $templateID, $variables, $categories) {
+		if (!($oMail instanceof MailerMail)) throw new InvalidArgumentException('oMail is not MailerMail');
+
+		$attachments = array();
+		foreach($oMail->getAttachments() as $oAttachment) {
+			$attachments[] = sprintf('%s (%d bytes)', $oAttachment->getFileName(), $oAttachment->getContent()->getSize());
+		}		
+		
+		Logger::debug('[MailerSender_Logs::sendTemplate] Sending mail', null, array(
+			'toMail' => $oMail->getToMail(),
+			'toName' => $oMail->getToName(),
+			'fromMail' => $oMail->getFromMail(),
+			'fromName' => $oMail->getFromName(),
+			'subject' => $oMail->getSubject(),
+			'contentType' => $oMail->getContentType(),
+			'contentText' => $oMail->getContentText(),
+			'attachments' => implode(' ',$attachments),
+			'templateID' => $templateID,
+			'categories' => $categories,
+			'variables' => $variables
+		));		
+		
+	}
+	
 }
 
 ?>

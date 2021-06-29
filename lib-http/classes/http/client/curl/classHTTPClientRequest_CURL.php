@@ -27,6 +27,7 @@ class HTTPClientRequest_CURL implements IHTTPClientRequest {
 	private $sslKeyPath = '';
 	private $sslCertPath = '';
 	private $sslVerify = true;
+	private $followRedirects = true;
 	private $outgoingInterface = '';
 	
 	/**
@@ -158,6 +159,14 @@ class HTTPClientRequest_CURL implements IHTTPClientRequest {
 	
 	//************************************************************************************
 	/**
+	 * @param bool $v
+	 */
+	public function setFollowRedirects($v) {
+		$this->followRedirects = $v ? true : false;
+	}
+	
+	//************************************************************************************
+	/**
 	 * @param NameValuePair $oUserAndPassword
 	 */
 	public function setHTTPAuth($oUserAndPassword) {
@@ -244,6 +253,11 @@ class HTTPClientRequest_CURL implements IHTTPClientRequest {
 		} else {
 			curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		}
+		if ($this->followRedirects) {
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		} else {
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 		}
 		if ($this->outgoingInterface) {
 			curl_setopt($ch, CURLOPT_INTERFACE, $this->outgoingInterface);

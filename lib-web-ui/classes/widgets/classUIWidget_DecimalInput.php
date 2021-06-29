@@ -24,10 +24,15 @@ class UIWidget_DecimalInput extends UIWidgetWithValue {
 	
 	private $length = 0;
 	private $precision = 0;
+	private $placeholder = '';
 	
 	//************************************************************************************
 	public function getLength() { return $this->length; }
 	public function getPrecision() { return $this->precision; }
+
+	//************************************************************************************
+	public function getPlaceHolder() { return $this->placeholder; }
+	public function setPlaceHolder($v) { $this->placeholder = $v; }
 	
 	//************************************************************************************
 	/**
@@ -67,6 +72,7 @@ class UIWidget_DecimalInput extends UIWidgetWithValue {
 		switch($key) {
 			case 'precision': return $this->precision;
 			case 'length': return $this->length; 
+			case 'placeholder': return $this->getPlaceholder();
 			default: return parent::tplRender($key, $oContext);
 		}
 	}

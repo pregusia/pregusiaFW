@@ -54,6 +54,7 @@ class ValidationProcessEntry {
 	//************************************************************************************
 	/**
 	 * @param ValidationErrorsCollection $oErrors
+	 * @return bool
 	 */
 	public function validate($oErrors) {
 		if (!($oErrors instanceof ValidationErrorsCollection)) throw new InvalidArgumentException('oErrors is not ValidationErrorsCollection');
@@ -64,7 +65,25 @@ class ValidationProcessEntry {
 		foreach($oTmpErrors->getErrors() as $oError) {
 			$oErrors->add(new ValidationError($this->fieldName, $oError->getErrorCode(), $oError->getErrorText()));
 		}
+		
+		return !$oTmpErrors->hasAny();
 	}
+	
+	//************************************************************************************
+	/**
+	 * @param mixed $value
+	 * @param string $fieldName
+	 * @param IValidator $oValidator
+	 * @param ValidationErrorsCollection $oErrors
+	 * @return bool
+	 */
+	public static function ValidateSingle($fieldName, $value, $oValidator, $oErrors) {
+		if (!($oValidator instanceof IValidator)) throw new InvalidArgumentException('oValidator is not IValidator');
+		if (!($oErrors instanceof ValidationErrorsCollection)) throw new InvalidArgumentException('oErrors is not ValidationErrorsCollection');
+		
+		$oEntry = new ValidationProcessEntry($fieldName, $value, $oValidator);
+		return $oEntry->validate($oErrors);
+	}	
 	
 }
 

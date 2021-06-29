@@ -27,7 +27,8 @@ class HTTPMethod extends Enum {
 	const PUT = 3;
 	const HEAD = 4;
 	const DELETE = 5;
-	const PATCH = 6;	
+	const PATCH = 6;
+	const OPTIONS = 7;
 
 	//************************************************************************************
 	public function __construct() {
@@ -38,7 +39,8 @@ class HTTPMethod extends Enum {
 			self::PUT => 'PUT',
 			self::HEAD => 'HEAD',
 			self::DELETE => 'DELETE',
-			self::PATCH => 'PATCH'
+			self::PATCH => 'PATCH',
+			self::OPTIONS => 'OPTIONS',
 		));
 	}	
 	

@@ -101,14 +101,6 @@ class UtilsString {
 	
 	//************************************************************************************
 	/**
-	 * @return string
-	 */
-	public static function generateGUID() {
-		return sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
-	}
-	
-	//************************************************************************************
-	/**
 	 * @param mixed $v
 	 * @return string
 	 */
@@ -314,6 +306,54 @@ class UtilsString {
 	
 	//************************************************************************************
 	/**
+	 * Zwraca podany ciag znakow jako base64url
+	 * @param string $value
+	 * @return string
+	 */
+	public static function base64URLEncode($value) {
+		return rtrim(strtr(base64_encode($value), '+/', '-_'),'=');
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param string $value
+	 * @return string
+	 */
+	public static function base64URLDecode($value) {
+		$value = trim($value);
+		if (!$value) return null;
+		
+		return @base64_decode(strtr($value, '-_', '+/'));		
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param array $json
+	 * @return string
+	 */
+	public static function base64URLEncodeJSON($json) {
+		if (!is_array($json)) throw new InvalidArgumentException('Given argument is not array');
+		return self::base64URLEncode(json_encode($json));
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param string $value
+	 * @return array
+	 */
+	public static function base64URLDecodeJSON($value) {
+		$data = self::base64URLDecode($value);
+		if ($data) {
+			$arr = json_decode($data, true);
+			if (is_array($arr)) {
+				return $arr;
+			}
+		}
+		return null;
+	}
+	
+	//************************************************************************************
+	/**
 	 * Serializuje podana tablice do JSON, nastepnie koduje kluczem (patrz simpleEncrypt)
 	 * i zwraca wartosc base64 z normalizacja znakow + i /
 	 * 
@@ -321,11 +361,11 @@ class UtilsString {
 	 * @param string $key
 	 * @return string
 	 */
-	public static function urlSafeEncode($data, $key) {
+	public static function urlSafeEncrypt($data, $key) {
 		if (!is_array($data)) throw new InvalidArgumentException('Given argument is not array');
 		
 		$data = self::simpleEncrypt(json_encode($data), $key);
-		return strtr(base64_encode($data), '+/', '-_');
+		return self::base64URLEncode($data);
 	}
 	
 	//************************************************************************************
@@ -336,11 +376,11 @@ class UtilsString {
 	 * @param string $key
 	 * @return array
 	 */
-	public static function urlSafeDecode($data, $key) {
+	public static function urlSafeDecrypt($data, $key) {
 		$data = trim($data);
 		if (!$data) return array();
 		
-		$data = @base64_decode(strtr($data, '-_', '+/'));
+		$data = self::base64URLDecode($data);
 		if ($data) {
 			$arr = @json_decode(self::simpleDecrypt($data, $key), true);
 			if (is_array($arr)) {
@@ -377,6 +417,27 @@ class UtilsString {
 		}
 		
 		return implode(' ',$arr);
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param string $value
+	 * @param string $validChars
+	 * @param string $replacement
+	 * @return string
+	 */
+	public static function normalizeString($value, $validChars, $replacement) {
+		$n = '';
+		for($i=0;$i<strlen($value);++$i) {
+			$ch = substr($value, $i, 1);
+			if (strpos($validChars, strtolower($ch)) !== false) {
+				$n .= $ch;
+			} else {
+				$n .= $replacement;
+			}
+		}
+		if (!$n) $n = 'empty';
+		return $n;		
 	}
 	
 }

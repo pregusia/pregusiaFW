@@ -180,10 +180,14 @@ class CodeBaseLibrary {
 			throw new IOException('Invalid path - ' . $this->path);
 		}
 	}
-	
 	//************************************************************************************
+	/**
+	 * @param string $name
+	 * @return bool
+	 */
 	public function exists($name) {
-		return file_exists($this->realPath($name));
+		$path = $this->realPath($name);
+		return @file_exists($path);
 	}
 	
 	//************************************************************************************
@@ -226,12 +230,12 @@ class CodeBaseLibrary {
 	 * @return CodeBaseDeclaredType
 	 */
 	public function getType($name) {
-		return $this->types[$name];
+		return isset($this->types[$name]) ? $this->types[$name] : null; 
 	}
 	
 	//************************************************************************************
 	public function hasType($name) {
-		return $this->types[$name] ? true : false;
+		return isset($this->types[$name]) ? true : false;
 	}
 	
 	//************************************************************************************

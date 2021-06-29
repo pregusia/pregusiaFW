@@ -96,46 +96,6 @@ class UtilsAPI {
 		return null;
 	}
 	
-	
-	//************************************************************************************
-	/**
-	 * @param mixed $authData
-	 * @return mixed
-	 */
-	public static function serializeAuthData($authData) {
-		if (is_string($authData)) return $authData;
-		if (is_array($authData)) return $authData;
-		if ($authData instanceof IRemoteServiceAuthData) return $authData->jsonSerialize();
-		return null;
-	}
-	
-	//************************************************************************************
-	/**
-	 * @param mixed $authData
-	 * @return IRemoteServiceAuthData
-	 */
-	public static function unserializeAuthData($authData) {
-		if (is_string($authData)) {
-			$authData = trim($authData);
-			if (!$authData) return null;
-			
-			return new RemoteServiceAuthData_String($authData);
-		}
-		
-		if (is_array($authData)) {
-			$type = $authData['type'];
-			if (!$type) return null;
-			
-			$oClass = CodeBase::getClass($type, false);
-			if (!$oClass) return null;
-			if (!$oClass->isImplementing('IRemoteServiceAuthData')) return null;
-			
-			return $oClass->callStaticMethod('jsonUnserialize',array($authData));
-		}
-
-		return null;
-	}
-	
 }
 
 ?>

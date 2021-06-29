@@ -25,6 +25,8 @@ class MailerMail {
 	private $toName = "";
 	private $fromMail = "";
 	private $fromName = "";
+	private $replyToName = '';
+	private $replyToMail = '';
 	private $subject = "";
 	private $contentType = "";
 	private $contentText = "";
@@ -58,6 +60,20 @@ class MailerMail {
 	 */
 	public function getFromName() { return $this->fromName; }
 	public function setFromName($v) { $this->fromName = $v; }
+	
+	//************************************************************************************
+	/**
+	 * @return string
+	 */
+	public function getReplyToName() { return $this->replyToName; }
+	public function setReplyToName($v) { $this->replyToName = $v; }
+	
+	//************************************************************************************
+	/**
+	 * @return string
+	 */
+	public function getReplyToMail() { return $this->replyToMail; }
+	public function setReplyToMail($v) { $this->replyToMail = $v; }
 	
 	//************************************************************************************
 	/**

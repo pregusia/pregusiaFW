@@ -112,7 +112,7 @@ class CodeBaseDeclaredClass extends CodeBaseDeclaredType {
 		$oClass = $this->getReflectionType();
 		while($oClass) {
 			$arr = $oClass->getTraits();
-			if ($arr['TSingleton']) return true;
+			if (isset($arr['TSingleton'])) return true;
 			$oClass = $oClass->getParentClass();
 		}
 		return false;

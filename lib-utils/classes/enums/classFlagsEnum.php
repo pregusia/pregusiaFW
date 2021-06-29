@@ -45,7 +45,7 @@ class FlagsEnum {
 		$s = decbin($v);
 		$n = 0;
 		for($i=0;$i<strlen($s);++$i) {
-			if ($s{$i} == '1') $n += 1;
+			if (substr($s,$i,1) == '1') $n += 1;
 		}
 		return $n == 1;
 	}

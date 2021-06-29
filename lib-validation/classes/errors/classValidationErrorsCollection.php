@@ -100,6 +100,19 @@ class ValidationErrorsCollection implements JsonSerializable, IteratorAggregate 
     
     //************************************************************************************
     /**
+     * @param object $ctx
+     * @return string
+     */
+    public function toString($ctx) {
+    	$res = array();
+    	foreach($this->getErrors() as $oError) {
+    		$res[] = sprintf('[%s: %s]', $oError->getFieldName(), $oError->getErrorText()->render($ctx));
+    	}
+    	return sprintf('[%s]', implode(',', $res));
+    }
+    
+    //************************************************************************************
+    /**
      * @param array $mappings
      * @return ValidationErrorsCollection
      */

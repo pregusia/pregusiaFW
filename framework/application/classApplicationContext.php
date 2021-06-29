@@ -193,7 +193,11 @@ class ApplicationContext {
 		}
 		
 		// config glowny
-		$this->oConfig->loadDirectory($this->adaptPath('configuration', true));
+		if ($configVariant = $this->getEnvironmentVariable('PFW_CONFIG_VARIANT')) {
+			$this->oConfig->loadDirectoryWithVariant($this->adaptPath('configuration', true), $configVariant);
+		} else {
+			$this->oConfig->loadDirectory($this->adaptPath('configuration', true));
+		}
 		
 		// NOTE: config z DB jest ladowany przez component od DB
 	}
@@ -201,6 +205,19 @@ class ApplicationContext {
 	//************************************************************************************
 	public function isEnvironmentCLI() { return $this->envType == self::ENV_CLI; }
 	public function isEnvironmentWeb() { return $this->envType == self::ENV_WEB; }
+	
+	//************************************************************************************
+	/**
+	 * @param string $name
+	 * @return string
+	 */
+	public function getEnvironmentVariable($name) {
+		$name = trim($name);
+		if (!$name) throw new InvalidArgumentException('Empty name');
+		$val = getenv($name);
+		if (!$val) return '';
+		return trim($val);
+	}
 	
 	//************************************************************************************
 	/**
@@ -221,16 +238,18 @@ class ApplicationContext {
 		global $argv;
 		$args = array();
 		foreach($argv as $p) {
-			list($k,$v) = explode('=',$p,2);
-			if ($k && $v && $k == $name) {
-				return $v;
+			if (strpos($p, '=') !== false) {
+				list($k,$v) = explode('=',$p,2);
+				if ($k && $v && $k == $name) {
+					return $v;
+				}
 			}
 		}
 		return '';
 	}
 	
 	//************************************************************************************
-	public function tagContains($tag) { return $this->tags[$tag] ? true : false; }
+	public function tagContains($tag) { return isset($this->tags[$tag]) ? true : false; }
 	public function tagSet($tag) { $this->tags[$tag] = 1; }
 	public function tagUnset($tag) { unset($this->tags[$tag]); }
 	
@@ -271,7 +290,7 @@ class ApplicationContext {
 		if ($name) {
 			$key .= '.' . $name;
 		}
-		if ($this->services[$key]) {
+		if (isset($this->services[$key])) {
 			throw new InvalidArgumentException(sprintf('Service %s already registered', $key));
 		}
 		$this->services[$key] = $inst;
@@ -289,7 +308,7 @@ class ApplicationContext {
 			$key .= '.' . $name;
 		}
 		
-		return $this->services[$key];
+		return isset($this->services[$key]) ? $this->services[$key] : null; 
 	}
 
 	//************************************************************************************

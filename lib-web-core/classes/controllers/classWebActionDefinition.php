@@ -182,6 +182,13 @@ class WebActionDefinition {
 			return $obj->onAfterAction($this, $oResponse);
 		} catch(Exception $e) {
 			
+			if (true) {
+				$res = $obj->onException($this, $e);
+				if ($res) {
+					return $res;
+				}
+			}
+			
 			if ($oWrapper = $this->getWrapper()) {
 				$res = $oWrapper->onException($this, $e);
 				if ($res) {

@@ -6,21 +6,21 @@
 		{if $Widget['hasSuffix'] && $Widget['hasPrefix']}
 		<div class="input-group">
 			<span class="input-group-addon"> {$Widget['prefix']} </span>
-			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" />
+			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" placeholder="{$Widget['placeholder']}" />
 			<span class="input-group-addon"> {$Widget['suffix']} </span>
 		</div>
 		{elseif $Widget['hasSuffix']}
 		<div class="input-group">
-			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" />
+			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" placeholder="{$Widget['placeholder']}" />
 			<span class="input-group-addon"> {$Widget['suffix']} </span>
 		</div>		
 		{elseif $Widget['hasPrefix']}
 		<div class="input-group">
 			<span class="input-group-addon"> {$Widget['prefix']} </span>
-			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" />
+			<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" placeholder="{$Widget['placeholder']}" />
 		</div>		
 		{else}
-		<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" />
+		<input id="{$Widget['elementID']}" {$Widget['elementParams']} class="form-control {$Widget['elementClasses']}" type="text" name="{$Widget['name']}" tabindex="{$Widget['index']}" value="{$Widget['value:html']}" placeholder="{$Widget['placeholder']}" />
 		{endif}	
 		
 		

@@ -39,11 +39,17 @@ class WebActionWrapper_ModalForm implements IWebActionWrapper {
 	 */
 	public function onEnd($oActionDef, $returnValue) {
 		if ($returnValue instanceof WebResponseRedirect) {
+			$action = 'close';
+			if ($oActionDef->getAnnotations()->has('ModalRedirectAction')) {
+				$action = $oActionDef->getAnnotations()->getFirst('ModalRedirectAction')->getParam();
+			}
 			return new WebResponseJson(array(
 				'status' => 'ok',
-				'action' => 'close'	
+				'action' => $action
 			));
 		}
+		
+		
 		
 		if ($returnValue instanceof WebResponseJson) {
 			return $returnValue;

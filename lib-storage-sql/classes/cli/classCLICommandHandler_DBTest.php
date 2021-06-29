@@ -20,53 +20,66 @@
  */
 
 
-class RemoteServiceAuthData_String implements IRemoteServiceAuthData {
-	
-	private $value = '';
+/**
+ * 
+ * @author pregusia
+ * @NeedLibrary lib-cli
+ *
+ */
+class CLICommandHandler_DBTest implements ICLICommandHandler {
 	
 	//************************************************************************************
 	/**
 	 * @return string
 	 */
-	public function getValue() { return $this->value; }
-	
-	//************************************************************************************
-	public function __construct($value) {
-		$this->value = trim($value);
+	public function getCommandName() {
+		return 'db:test';
 	}
 	
 	//************************************************************************************
 	/**
-	 * @param string $pattern
-	 * @return bool
+	 * @return string
 	 */
-	public function matches($pattern) {
-		return preg_match($pattern, $this->value);
-	}
-	
-	//************************************************************************************
-	public function jsonSerialize() {
-		$val = trim($this->value);
-		if ($val) {
-			return $val;
-		} else {
-			return null;
-		}
+	public function getDescription() {
+		return 'Test SQL connection to given storage';
 	}
 	
 	//************************************************************************************
 	/**
-	 * @param array $arr
-	 * @return RemoteServiceAuthData_String
+	 * @return CLIArgumentBinder[]
 	 */
-	public static function jsonUnserialize($arr) {
-		if (is_array($arr)) {
-			if ($arr['type'] != 'RemoteServiceAuthData_String') return null;
-			if (!$arr['value']) return null;
-			return new RemoteServiceAuthData_String($arr['value']);
-		}
-		return null;
+	public function getArguments() {
+		return array(
+			new CLIArgumentBinder('storageName', true, 'Storage name')	
+		);
 	}
+	
+	//************************************************************************************
+	/**
+	 * @param ApplicationContext $oContext
+	 * @param array $arguments
+	 * @return int
+	 */
+	public function handleCommand($oContext, $arguments) {
+		$oComponent = $oContext->getComponent('storage.sql');
+		false && $oComponent = new SQLStorageApplicationComponent();
+		
+		$oStorage = $oComponent->getStorage($arguments['storageName']); 
+		if (!$oStorage) {
+			throw new ObjectNotFoundException(sprintf('Cannot find SQLStorage %s', $arguments['storageName']));
+		}
+		
+		try {
+			$oStorage->query('SHOW TABLES');
+			printf("SQL CONNECTION OK\n");
+			return 0;
+			
+		} catch(Exception $e) {
+			
+			printf("ERROR: %s\n", UtilsExceptions::toString($e));
+			return 1;
+		}
+	}	
 	
 }
 

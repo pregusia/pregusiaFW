@@ -186,17 +186,22 @@ class UtilsNet {
 	 */
 	public static function CIDRMatch($ip, $network) {
 		list($subnet, $bits) = explode('/', $network);
+		$ipStr = $ip;
 		$ip = ip2long($ip);
 		$bits = intval($bits);
-		if ($bits <= 1 || $bits > 24) throw new InvalidArgumentException('Invalid network');
+		if ($bits <= 1 || $bits > 32) throw new InvalidArgumentException('Invalid network');
 		
 		if ($ip === false) throw new InvalidArgumentException('Invalid IP');
 		if (!$subnet) throw new InvalidArgumentException('Invalid network');
 		
-		$subnet = ip2long($subnet);
-		$mask = -1 << (32 - $bits);
-		$subnet &= $mask; # nb: in case the supplied subnet wasn't correctly aligned
-		return ($ip & $mask) == $subnet;
+		if ($bits == 32) {
+			return $ipStr == $subnet;
+		} else {
+			$subnet = ip2long($subnet);
+			$mask = -1 << (32 - $bits);
+			$subnet &= $mask; # nb: in case the supplied subnet wasn't correctly aligned
+			return ($ip & $mask) == $subnet;
+		}
 	}	
 	
 	//************************************************************************************

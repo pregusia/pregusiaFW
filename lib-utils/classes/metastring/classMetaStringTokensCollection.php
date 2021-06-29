@@ -88,7 +88,7 @@ class MetaStringTokensCollection {
 		$str = trim($str);
 		if (!$str) return $obj;
 		
-		$arr = preg_split('/(\[\/?[A-Za-z0-9\.\-]+(?:=[A-Za-z0-9\#\.\-]+)?\/?\])/',$str, null, PREG_SPLIT_DELIM_CAPTURE);
+		$arr = preg_split('/(\[\/?[A-Za-z0-9\.\-\_]+(?:=[A-Za-z0-9\#\.\-\_]+)?\/?\])/',$str, null, PREG_SPLIT_DELIM_CAPTURE);
 		foreach($arr as $v) {
 			if (!$v) continue;
 			$rawText = $v;

@@ -20,7 +20,33 @@
  */
 
 
-interface IRemoteServiceAuthData extends JsonSerializable {
+class ValidatorOneOf implements IValidator {
+	
+	const CODE = 1170;
+	const TXT_INVALID = '[i18n=ValidatorOneOf.invalid]Invalid value[/i18n]';
+
+	private $values = array();
+	
+	//************************************************************************************
+	/**
+	 * @param string[] $values
+	 */
+	public function __construct($values) {
+		if (!is_array($values)) throw new InvalidArgumentException('values is not array');
+		$this->values = $values;
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param mixed $value
+	 * @param ValidationProcessEntry $oEntry
+	 * @param ValidationErrorsCollection $oErrors
+	 */
+	public function validate($value, $oEntry, $oErrors) {
+		if (!in_array($value, $this->values)) {
+			$oErrors->add(new ValidationError('', self::CODE + 2, ComplexString::Create(self::TXT_INVALID)));
+		}
+	}
 	
 }
 

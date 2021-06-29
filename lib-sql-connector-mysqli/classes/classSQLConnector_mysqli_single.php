@@ -59,6 +59,12 @@ class SQLConnector_mysqli_single implements ISQLConnector {
 		$this->db->query("SET CHARACTER SET 'utf8'");
 		$this->db->query("SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'");
 		
+		if (is_array($config['initialQueries'])) {
+			foreach($config['initialQueries'] as $query) {
+				$this->db->query($query);
+			}
+		}
+		
 		// conn timezone
 		if (true) {
 			$n = new DateTime();

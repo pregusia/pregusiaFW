@@ -68,6 +68,14 @@ abstract class RemoteServiceSupplier {
 	
 	//************************************************************************************
 	/**
+	 * @return RemoteServiceAuthAcceptor
+	 */
+	public function getAuthAcceptor() {
+		return $this->getAPIComponent()->getAuthAcceptorForSupplier($this);
+	}
+	
+	//************************************************************************************
+	/**
 	 * Stwierdza czy ten supplier pasuje do wywolania
 	 * Wywolanie tego jest przed onInit i nie powinno byc w zaden sposob kontekstowe
 	 * 
@@ -132,6 +140,21 @@ abstract class RemoteServiceSupplier {
 	
 	//************************************************************************************
 	/**
+	 * Zwraca nazwe interfejsu zapewnianego przez ten supplier
+	 * jesli jest to wiecej niz jeden, to nic nie zwraca
+	 * @return string
+	 */
+	public function getSuppliedInterfaceName() {
+		$Interfaces = $this->getInterfaces();
+		if (count($Interfaces) == 1) {
+			return UtilsArray::getFirst($Interfaces)->getName();
+		} else {
+			return '';
+		}
+	}
+	
+	//************************************************************************************
+	/**
 	 * @param APIServerRequest $oRequest
 	 */
 	protected function onInit($oRequest) {
@@ -153,36 +176,41 @@ abstract class RemoteServiceSupplier {
 		$methodName = trim($jsonRequest['method']);
 		if (!$methodName) throw new APIProcessingErrorException('Method not found', APIProcessingErrorException::CODE_SERVER_METHOD_NOT_FOUND, 404);
 			
-		$oMethod = null;
-		foreach($this->getInterfaces() as $oInterface) {
-			if ($oInterface->getReflectionType()->hasMethod($methodName)) {
-				$oMethod = $oInterface->getReflectionType()->getMethod($methodName);
-				break;
-			}
-		}
-		if (!$oMethod) throw new APIProcessingErrorException('Method not found', APIProcessingErrorException::CODE_SERVER_METHOD_NOT_FOUND, 404);
-
-		$oThisClass = new ReflectionClass($this);
-		$oMethodAnnotations = CodeBaseAnnotationsCollection::ParseDocComment($oMethod->getDocComment());
-
-		$methodInvokeArgs = array();
-		foreach($oMethod->getParameters() as $oParam) {
-			false && $oParam = new ReflectionParameter();
-			$paramName = trim($oParam->getName(),'$');
-			$paramValue = $jsonRequest['params'][$paramName];
-			$paramType = $oMethodAnnotations->getParameterType($paramName);
+		if ($methodName == '__testMethod') {
+			return true;
 			
-			$methodInvokeArgs[] = UtilsAPI::fromJSON($paramValue, $paramType);
+		} else {
+			$oMethod = null;
+			foreach($this->getInterfaces() as $oInterface) {
+				if ($oInterface->getReflectionType()->hasMethod($methodName)) {
+					$oMethod = $oInterface->getReflectionType()->getMethod($methodName);
+					break;
+				}
+			}
+			if (!$oMethod) throw new APIProcessingErrorException('Method not found', APIProcessingErrorException::CODE_SERVER_METHOD_NOT_FOUND, 404);
+	
+			$oThisClass = new ReflectionClass($this);
+			$oMethodAnnotations = CodeBaseAnnotationsCollection::ParseDocComment($oMethod->getDocComment());
+	
+			$methodInvokeArgs = array();
+			foreach($oMethod->getParameters() as $oParam) {
+				false && $oParam = new ReflectionParameter();
+				$paramName = trim($oParam->getName(),'$');
+				$paramValue = $jsonRequest['params'][$paramName];
+				$paramType = $oMethodAnnotations->getParameterType($paramName);
+				
+				$methodInvokeArgs[] = UtilsAPI::fromJSON($paramValue, $paramType);
+			}
+			
+			
+			$this->onInit($oRequest);
+			$returnValue = $oThisClass->getMethod($oMethod->getName())->invokeArgs($this, $methodInvokeArgs);
+			$returnType = $oMethodAnnotations->getFirst('return') ? $oMethodAnnotations->getFirst('return')->getParam() : '';
+			
+			$returnValue = UtilsAPI::toJSON($returnValue, $returnType);
+	
+			return $returnValue;
 		}
-		
-		
-		$this->onInit($oRequest);
-		$returnValue = $oThisClass->getMethod($oMethod->getName())->invokeArgs($this, $methodInvokeArgs);
-		$returnType = $oMethodAnnotations->getFirst('return') ? $oMethodAnnotations->getFirst('return')->getParam() : '';
-		
-		$returnValue = UtilsAPI::toJSON($returnValue, $returnType);
-
-		return $returnValue;
 	}
 	
 }

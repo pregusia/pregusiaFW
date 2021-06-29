@@ -80,6 +80,11 @@ interface IHTTPClientRequest {
 	public function setSSLVerify($v);
 	
 	/**
+	 * @param bool $v
+	 */
+	public function setFollowRedirects($v);
+	
+	/**
 	 * @param NameValuePair $oUserAndPassword
 	 */
 	public function setHTTPAuth($oUserAndPassword);

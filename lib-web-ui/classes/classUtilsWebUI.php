@@ -122,7 +122,7 @@ class UtilsWebUI {
 		$arr['name'] = $name;
 		foreach($params as $k => $v) $arr[$k] = $v; 
 			
-		return UtilsString::urlSafeEncode($arr, WebParameterType_encarr::KEY);
+		return UtilsString::urlSafeEncrypt($arr, WebParameterType_encarr::KEY);
 	}
 		
 }

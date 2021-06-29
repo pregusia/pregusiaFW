@@ -23,9 +23,14 @@
 class SQLQueryForeignKeyException extends SQLQueryErrorException {
 
 	//************************************************************************************
-	public function __construct($errNo, $errText, $queryText) {
+	public function __construct($errNo=0, $errText='', $queryText='') {
 		parent::__construct($errNo, $errText, $queryText);
 	}
+	
+	//************************************************************************************
+	public static function jsonUnserialize($arr) {
+		return new SQLQueryForeignKeyException($arr['errorNo'], $arr['errorText'], $arr['queryText']);
+	}	
 	
 }
 

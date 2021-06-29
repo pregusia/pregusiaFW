@@ -230,6 +230,17 @@ abstract class ORMTableRecord {
 	
 	//************************************************************************************
 	/**
+	 * @return bool
+	 */
+	public function wasAnyFieldChanged() {
+		foreach($this->getFields() as $oField) {
+			if ($oField->isChanged()) return true;
+		}
+		return false;
+	}
+	
+	//************************************************************************************
+	/**
 	 * Tworzy klon
 	 * @return self
 	 */
@@ -434,6 +445,14 @@ abstract class ORMTableRecord {
 	 * Wywolywane w momencie doAdd/doUpdate (nawet jesli nic w bazie sie nie zienilo)
 	 */
 	protected function onSaved() {
+		
+	}
+	
+	//************************************************************************************
+	/**
+	 * Wywolywane w momencie zaladowania rekordu z DB
+	 */
+	public function onAfterLoad() {
 		
 	}
 	

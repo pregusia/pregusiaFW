@@ -36,6 +36,9 @@ class UIWidget_Checkboxes extends UIWidgetWithValue {
 	}
 	
 	//************************************************************************************
+	/**
+	 * @return UIWidget_Checkboxes
+	 */
 	public function setValue($v) {
 		parent::setValue(intval($v));
 		foreach($this->checkboxes as $oCheckbox) {
@@ -45,6 +48,7 @@ class UIWidget_Checkboxes extends UIWidgetWithValue {
 				$oCheckbox->setChecked(false);
 			}
 		}
+		return $this;
 	}
 	
 	//************************************************************************************
@@ -57,9 +61,9 @@ class UIWidget_Checkboxes extends UIWidgetWithValue {
 	/**
 	 * @param string $name
 	 * @param ComplexString $caption
-	 * @return UIWidget_CheckboxesCheckbox
+	 * @return UIWidget_Checkboxes
 	 */
-	public function addCheckbox($name, $caption) {
+	public function addCheckbox($name, $caption, $checked=false) {
 		$name = trim($name);
 		
 		if (!$name) throw new InvalidArgumentException('Empty name');
@@ -70,7 +74,30 @@ class UIWidget_Checkboxes extends UIWidgetWithValue {
 		$this->checkboxes[$name] = $oCheckbox;
 		$this->nr *= 2;
 		
-		return $oCheckbox;
+		if ($checked) {
+			$this->setChecked($name, true);
+		}
+		
+		return $this;
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param string $name
+	 * @param bool $checked
+	 * @return UIWidget_Checkboxes
+	 */
+	public function setChecked($name, $checked) {
+		if ($oChecbox = $this->checkboxes[$name]) {
+			if ($checked) {
+				$this->value |= $oChecbox->getValue();
+				$oChecbox->setChecked(true);
+			} else {
+				$this->value &= ~$oChecbox->getValue();
+				$oChecbox->setChecked(false);
+			}
+		}
+		return $this;
 	}
 	
 	//************************************************************************************

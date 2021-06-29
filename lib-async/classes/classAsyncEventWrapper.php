@@ -89,7 +89,7 @@ class AsyncEventWrapper {
 
 		$eventData = trim($eventData);
 		
-		$this->dataRaw = $data;
+		$this->dataRaw = $eventData;
 		$this->dataType = self::DATA_RAW;
 		
 		if ($eventData) {
@@ -105,7 +105,12 @@ class AsyncEventWrapper {
 					$this->dataType = self::DATA_OBJECT;
 				}
 			}
-		}		
+		}
+		
+		if (!$this->eventType && $this->dataArray && isset($this->dataArray['__eventType'])) {
+			$this->eventType = $this->dataArray['__eventType'];
+		}
+		
 	}
 	
 	//************************************************************************************

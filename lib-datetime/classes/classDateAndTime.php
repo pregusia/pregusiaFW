@@ -119,6 +119,15 @@ class DateAndTime implements IComparable, JsonSerializable {
 	
 	//************************************************************************************
 	/**
+	 * Zwraca date w formacie ISO, tj. np. 2021-05-11T09:54:13.000000
+	 * @return string
+	 */
+	public function toISOString() {
+		return sprintf('%sT%s.000000', $this->getDate()->toString(), $this->getTime()->toString());
+	}
+	
+	//************************************************************************************
+	/**
 	 * @return DateAndTime
 	 */
 	public static function Now() {
@@ -139,9 +148,14 @@ class DateAndTime implements IComparable, JsonSerializable {
 	 * @return DateAndTime
 	 */
 	public static function FromString($str) {
-		list($a, $b) = explode(' ',$str, 2);
-		$oDate = Date::FromString($a);
-		$oTime = Time::FromString($b);
+		$arr = explode(' ',$str,2);
+		if (count($arr) != 2) {
+			$arr = explode('T',$str,2);
+		}
+		if (count($arr) != 2) return null;
+		
+		$oDate = Date::FromString($arr[0]);
+		$oTime = Time::FromString($arr[1]);
 		if ($oDate && $oTime) {
 			return new DateAndTime($oDate, $oTime);
 		} else {

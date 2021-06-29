@@ -22,6 +22,12 @@
 
 class UIWidget_TextInput extends UIWidgetWithValue {
 	
+	private $placeholder = '';
+	
+	//************************************************************************************
+	public function getPlaceHolder() { return $this->placeholder; }
+	public function setPlaceHolder($v) { $this->placeholder = $v; }
+	
 	//************************************************************************************
 	/**
 	 * @param WebRequest $oRequest
@@ -29,6 +35,14 @@ class UIWidget_TextInput extends UIWidgetWithValue {
 	protected function onRead($oRequest) {
 		$this->value = $oRequest->getString($this->getName());
 	}
+	
+	//************************************************************************************
+	public function tplRender($key, $oContext) {
+		switch($key) {
+			case 'placeholder': return $this->getPlaceholder();
+			default: return parent::tplRender($key, $oContext);
+		}
+	}		
 
 	//************************************************************************************
 	/**

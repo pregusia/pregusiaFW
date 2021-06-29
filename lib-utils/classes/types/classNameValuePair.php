@@ -86,7 +86,7 @@ class NameValuePair implements JsonSerializable {
 	public static function jsonUnserializeArray($arr) {
 		$res = array();
 		foreach($arr as $v) {
-			if ($obj == self::jsonUnserialize($v)) {
+			if ($obj = self::jsonUnserialize($v)) {
 				$res[] = $obj;
 			}
 		}

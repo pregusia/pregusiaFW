@@ -1,6 +1,7 @@
 [
 	{"kind": "class", "name": "LanguageEnum", "path": "./classes/enumLanguageEnum.php", "annos": [] },
 	{"kind": "class", "name": "ORMField_I18NText", "path": "./classes/orm/classORMField_I18NText.php", "annos": ["NeedLibrary lib-orm"] },
+	{"kind": "class", "name": "HTTPRequestI18NCurrentLanguageResolver", "path": "./classes/classHTTPRequestI18NCurrentLanguageResolver.php", "annos": [] },
 	{"kind": "class", "name": "GetTextMOReader", "path": "./classes/populators/classGetTextMOReader.php", "annos": [] },
 	{"kind": "class", "name": "I18NGetTextMOTranslationsPopulator", "path": "./classes/populators/classI18NGetTextMOTranslationsPopulator.php", "annos": [] },
 	{"kind": "class", "name": "I18NMetaStringTagsHandler", "path": "./classes/classI18NMetaStringTagsHandler.php", "annos": [] },
@@ -10,6 +11,7 @@
 	{"kind": "iface", "name": "II18NTranslationsPopulator", "path": "./classes/populators/interfaceII18NTranslationsPopulator.php", "annos": [] },
 	{"kind": "class", "name": "I18NTemplateRenderableMod", "path": "./classes/tpl/classI18NTemplateRenderableMod.php", "annos": ["NeedLibrary lib-templating"] },
 	{"kind": "class", "name": "UIWidget_I18NStringInput", "path": "./classes/ui/classUIWidget_I18NStringInput.php", "annos": ["NeedLibrary lib-web-ui"] },
+	{"kind": "iface", "name": "II18NCurrentLanguageResolver", "path": "./classes/interfaceII18NCurrentLanguageResolver.php", "annos": [] },
 	{"kind": "class", "name": "I18NJsonTranslationsPopulator", "path": "./classes/populators/classI18NJsonTranslationsPopulator.php", "annos": [] },
 	{"kind": "class", "name": "I18NXmlTranslationsPopulator", "path": "./classes/populators/classI18NXmlTranslationsPopulator.php", "annos": [] },
 	{"kind": "class", "name": "I18NApplicationComponent", "path": "./classes/classI18NApplicationComponent.php", "annos": [] },

@@ -141,6 +141,17 @@ class ORMTableRecordRelationInstance {
 		$this->records = $this->getForeign()->getTable()->getList($oSelect);
 		$this->loaded = true;
 	}
+	
+	//************************************************************************************
+	/**
+	 * @return int
+	 */
+	public function doGetCount() {
+		$oSelect = new ORMQuerySelect();
+		$oSelect->addKnownRecord($this->getDefinition(), $this->getLocalRecord());
+		$oSelect->addSQLWhere(ORMKey::createEqualCondition('a_main', $this->getForeign()->getKey(), $this->getLocalRecord(), $this->getLocal()->getKey()));
+		return $this->getForeign()->getTable()->getCount($oSelect);
+	}
 
 }
 

@@ -119,6 +119,9 @@ class Time implements IComparable, JsonSerializable {
 	 */
 	public static function FromString($str) {
 		list($h,$m,$s) = explode(':', $str);
+		$h = intval($h);
+		$m = intval($m);
+		$s = intval($s);
 		return new Time($h, $m, $s);
 	}
 

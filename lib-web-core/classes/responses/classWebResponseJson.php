@@ -39,6 +39,7 @@ class WebResponseJson extends WebResponseBase {
 	 */
 	public function finish($oHttpResponse) {
 		$oHttpResponse->setContentType('application/json; charset=UTF-8');
+		$oHttpResponse->setStatusCode($this->getHttpCode());
 		
 		$self = $this;
 		$oHttpResponse->pushOutputFunction(function() use ($self){

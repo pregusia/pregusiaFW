@@ -43,6 +43,14 @@ class I18NApplicationComponent extends ApplicationComponent {
 	
 	//************************************************************************************
 	/**
+	 * @return II18NCurrentLanguageResolver[]
+	 */
+	public function getCurrentLanguageResolvers() {
+		return $this->getExtensions('II18NCurrentLanguageResolver');
+	}
+	
+	//************************************************************************************
+	/**
 	 * @return I18NTranslation[]
 	 */
 	public function getTranslations() {
@@ -60,14 +68,11 @@ class I18NApplicationComponent extends ApplicationComponent {
 			$this->loadTranslations();
 			
 			
-			$oHttpRequest = $this->getService('IHTTPServerRequest');
-			if ($oHttpRequest) {
-				false && $oHttpRequest = new IHTTPServerRequest();
-				if ($oHttpRequest->getCookies()->contains('lang')) {
-					$this->currentLanguage = strtoupper($oHttpRequest->getCookies()->get('lang')->getValue());
-				}
-				elseif ($oHttpRequest->getGETParameter('lang')) {
-					$this->currentLanguage = strtoupper($oHttpRequest->getGETParameter('lang'));
+			foreach($this->getCurrentLanguageResolvers() as $oResolver) {
+				$lang = $oResolver->resolveCurrentLanguage();
+				if ($lang) {
+					$this->currentLanguage = strtoupper($lang);
+					break;
 				}
 			}
 			

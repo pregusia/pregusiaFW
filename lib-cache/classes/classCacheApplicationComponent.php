@@ -48,7 +48,7 @@ class CacheApplicationComponnet extends ApplicationComponent {
 		$name = trim($name);
 		if (!$name) throw new InvalidArgumentException('Empty name');
 		
-		if (!$this->caches[$name]) {
+		if (!isset($this->caches[$name])) {
 			$oConfig = $this->getConfig()->getSubConfig($name);
 			if ($oConfig->isEmpty()) {
 				throw new InvalidArgumentException(sprintf('Cache with name "%s" not found', $name));

@@ -117,6 +117,62 @@ class APIApplicationComponent extends ApplicationComponent {
 	
 	//************************************************************************************
 	/**
+	 * @return RemoteServiceAuthAcceptor
+	 */
+	public function getDefaultAuthAcceptor() {
+		$val = $this->getConfig()->getValue('server.authAcceptor.default');
+		if ($val) {
+			if (!is_array($val)) {
+				throw new ConfigurationException('Config value api.authAcceptor.default is not string[]');
+			}
+			return RemoteServiceAuthAcceptor::CreateFromJSON($val);
+		} else {
+			// nie jest sprecyzowane, wiec tworzymy taki, ktory przyjmuje wsio
+			return RemoteServiceAuthAcceptor::CreateAcceptingAll();
+		} 		
+	}
+	
+	//************************************************************************************
+	/**
+	 * @param RemoteServiceSupplier $oSupplier
+	 * @return RemoteServiceAuthAcceptor
+	 */
+	public function getAuthAcceptorForSupplier($oSupplier) {
+		if (!($oSupplier instanceof RemoteServiceSupplier)) throw new InvalidArgumentException('oSupplier is not RemoteServiceSupplier');
+		
+		$ifaceName = $oSupplier->getSuppliedInterfaceName();
+		if ($ifaceName) {
+			$confKey = sprintf('server.authAcceptor.%s', $ifaceName);
+			$val = $this->getConfig()->getValue($confKey);
+			if ($val) {
+				if (!is_array($val)) {
+					throw new ConfigurationException(sprintf('Config value %s is not string[]', $confKey));
+				}
+				return RemoteServiceAuthAcceptor::CreateFromJSON($val);
+			} else {
+				// nie jest sprecyzowane -> zwracamy domyslny
+				return $this->getDefaultAuthAcceptor();
+			}
+			
+		} else {
+			return $this->getDefaultAuthAcceptor();
+		}
+	}
+	
+	//************************************************************************************
+	/**
+	 * @return IRemoteServiceAuthData
+	 */
+	public function getDefaultClientAuth() {
+		if ($v = $this->getConfig()->getValue('client.defaultAuth')) {
+			return RemoteServiceAuthDataFactory::UnserializeJSON($v);
+		} else {
+			return null;
+		}
+	}
+	
+	//************************************************************************************
+	/**
 	 * Tworzy link do uslugi API
 	 * @param string $p1
 	 * @param string $p2
@@ -164,21 +220,27 @@ class APIApplicationComponent extends ApplicationComponent {
 		
 		try {
 			if ($oHttpRequest->getMethod() != HTTPMethod::POST) throw new APIProcessingErrorException('Invalid HTTP method', APIProcessingErrorException::CODE_SERVER_REQUEST_INVALID_HTTP_METHOD, 405);
-			if (strpos($oHttpRequest->getHeaders()->getOne('Content-Type'),'application/json') === false) throw new APIProcessingErrorException('Invalid content type', APIProcessingErrorException::CODE_SERVER_REQUEST_INVALID_CONTENT_TYPE, 415);
+			if (strpos($oHttpRequest->getHeaders()->getOneIgnoringCase('Content-Type'),'application/json') === false) throw new APIProcessingErrorException('Invalid content type', APIProcessingErrorException::CODE_SERVER_REQUEST_INVALID_CONTENT_TYPE, 415);
 			
 			$jsonRequest = @json_decode($oHttpRequest->getRequestContent(), true);
 			if (!is_array($jsonRequest)) throw new APIProcessingErrorException('Invalid JSONRPC request - could not parse', APIProcessingErrorException::CODE_SERVER_REQUEST_JSON_PARSE_ERROR, 500);
 			
 			$requestId = intval($jsonRequest['id']);
-			$authData = $jsonRequest['auth'];
+			$oAuthData = null;
 			
 			if ($jsonRequest['jsonrpc'] != '2.0') throw new APIProcessingErrorException('Invalid JSONRPC request - not jsonrpc object', APIProcessingErrorException::CODE_SERVER_REQUEST_JSON_PARSE_ERROR, 500);
 			if (!is_array($jsonRequest['params'])) throw new APIProcessingErrorException('Invalid JSONRPC request - invalid params', APIProcessingErrorException::CODE_SERVER_REQUEST_JSON_PARSE_ERROR, 500);
 			if (!is_int($jsonRequest['id'])) throw new APIProcessingErrorException('Invalid JSONRPC request - invalid id', APIProcessingErrorException::CODE_SERVER_REQUEST_JSON_PARSE_ERROR, 500);
 			
-			$oAuthData = UtilsAPI::unserializeAuthData($authData);
-			$oRequest = new APIServerRequest($jsonRequest, $pathParts, $oAuthData);
+			// auth parse
+			if ($headerValue = $oHttpRequest->getHeaders()->getOneIgnoringCase('Authorization')) {
+				$oAuthData = RemoteServiceAuthDataFactory::UnserializeHeader($headerValue);
+			}
+			if (isset($jsonRequest['auth']) && !$oAuthData) {
+				$oAuthData = RemoteServiceAuthDataFactory::UnserializeJSON($jsonRequest['auth']);
+			}
 			
+			$oRequest = new APIServerRequest($jsonRequest, $pathParts, $oAuthData);
 			
 			$oMatchingSupplier = null;
 			foreach($this->getSuppliers() as $oSupplier) {
@@ -189,7 +251,17 @@ class APIApplicationComponent extends ApplicationComponent {
 			}
 			if (!$oMatchingSupplier) throw new APIProcessingErrorException('Supplier not found', APIProcessingErrorException::CODE_SERVER_SUPPLIER_NOT_FOUND, 404);
 			
-
+			
+			// ok, to teraz przez acceptor i sprawdzamy
+			if (true) {
+				$oAcceptor = $this->getAuthAcceptorForSupplier($oMatchingSupplier);
+				if (!$oAcceptor->isIPAccepted($oHttpRequest->getRemoteAddr())) {
+					throw new SecurityException(sprintf('Source IP %s is not allowed', $oHttpRequest->getRemoteAddr()));
+				}
+				if (!$oAcceptor->isAccepted($oAuthData)) {
+					throw new SecurityException('Given authorization is not accepted');
+				}
+			} 
 			
 			$jsonReturnValue = $oMatchingSupplier->supplierProcess($this, $oRequest);
 			
@@ -267,6 +339,8 @@ class APIApplicationComponent extends ApplicationComponent {
 	
 	//************************************************************************************
 	private function initRegistry() {
+		$oDefaultAuth = $this->getDefaultClientAuth();
+		
 		foreach($this->getConfig()->getArray('registry') as $name => $config) {
 			$serviceClass = '';
 			$serviceName = '';
@@ -290,11 +364,17 @@ class APIApplicationComponent extends ApplicationComponent {
 			if (!$config['url']) throw new ConfigEntryInvalidValueException(sprintf('api.registry.%s.url', $name));
 			if (!filter_var($config['url'], FILTER_VALIDATE_URL)) throw new ConfigEntryInvalidValueException(sprintf('api.registry.%s.url', $name));
 			
+			$oAuthData = $oDefaultAuth;
+			
+			if (isset($config['auth'])) {
+				$oAuthData = RemoteServiceAuthDataFactory::UnserializeJSON($config['auth']);
+			}
+			
 			$oHTTPClient = HTTPClient_CURL::Create($config['url']);
-			$oClient = RemoteServiceClient::Create($oInterface, $oHTTPClient, $config['auth']);
+			$oClient = RemoteServiceClient::Create($oInterface, $oHTTPClient, $oAuthData);
 			$this->registerService($serviceClass, $serviceName, $oClient);
 			
-			if (is_array($config['cache'])) {
+			if (isset($config['cache']) && is_array($config['cache'])) {
 				$oClient->enableCache($config['cache']['name'], $config['cache']['methods']);
 			}
 		}

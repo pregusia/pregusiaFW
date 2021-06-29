@@ -175,6 +175,7 @@ class ORMResultsSetMappedRow {
 		foreach($this->records as $oRecord) {
 			false && $oRecord = new ORMTableRecord();
 			$oRecord->getEvents(ORMTableRecord::EVENTS_AFTER_LOAD)->call($oRecord);
+			$oRecord->onAfterLoad();
 			foreach($oRecord->getORM()->getComponent()->getORMExtensions() as $oExtension) {
 				$oExtension->onAfterLoad($oRecord->getORM(), $oRecord);
 			}

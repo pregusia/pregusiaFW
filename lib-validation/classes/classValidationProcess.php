@@ -42,7 +42,7 @@ class ValidationProcess implements IteratorAggregate {
 			$obj->validationFill($this);
 			return true;
 		} else {
-			return fale;
+			return false;
 		}
 	}
 	

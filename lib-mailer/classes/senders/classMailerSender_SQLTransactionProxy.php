@@ -37,6 +37,8 @@ class MailerSender_SQLTransactionProxy implements IMailerSender, ISQLTransaction
 	private $toSend = array();
 	private $senderName = '';
 	
+	private $toSendTemplates = array();
+	
 	
 	//************************************************************************************
 	public function __construct($oComponent, $senderName) {
@@ -79,6 +81,23 @@ class MailerSender_SQLTransactionProxy implements IMailerSender, ISQLTransaction
 	
 	//************************************************************************************
 	/**
+	 * @param MailerMail $oMail
+	 * @param string $templateID
+	 * @param array $variables
+	 * @param string[] $categories
+	 */
+	public function sendTemplate($oMail, $templateID, $variables, $categories) {
+		if (!($oMail instanceof MailerMail)) throw new InvalidArgumentException('oMail is not MailerMail');
+		$this->toSendTemplates[] = array(
+			'mail' => $oMail,
+			'templateID' => $templateID,
+			'variables' => $variables,
+			'categories' => $categories	
+		);
+	}
+	
+	//************************************************************************************
+	/**
 	 * @param SQLTransaction $oTransation
 	 */
 	public function onBegin($oTransation) {
@@ -90,7 +109,19 @@ class MailerSender_SQLTransactionProxy implements IMailerSender, ISQLTransaction
 	 * @param SQLTransaction $oTransation
 	 */	
 	public function onCommit($oTransation) {
-		$this->oComponent->getSender($this->senderName)->sendMany($this->toSend);
+		$oSender = $this->oComponent->getSender($this->senderName);
+		
+		$oSender->sendMany($this->toSend);
+		
+		foreach($this->toSendTemplates as $tpl) {
+			$oSender->sendTemplate(
+				$tpl['mail'],
+				$tpl['templateID'],
+				$tpl['variables'],
+				$tpl['categories']
+			);
+		}
+		
 	}
 	
 	//************************************************************************************

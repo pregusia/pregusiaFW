@@ -71,7 +71,7 @@ final class WebPublicController extends WebController {
 				
 				$oResource = $this->locateResource(implode('/', $path));
 				if ($oResource) {
-					$ifModifiedSince = $this->getHTTPRequest()->getHeaders()->getOne('If-Modified-Since');
+					$ifModifiedSince = $this->getHTTPRequest()->getHeaders()->getOneIgnoringCase('If-Modified-Since');
 					return new WebResponseLibraryResource($oResource, $ifModifiedSince);
 				}
 			}

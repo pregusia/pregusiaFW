@@ -62,6 +62,17 @@ class MailerSender_PHPMail implements IMailerSender {
 		return $num;
 	}
 	
+	//************************************************************************************
+	/**
+	 * @param MailerMail $oMail
+	 * @param string $templateID
+	 * @param array $variables
+	 * @param string[] $categories
+	 */
+	public function sendTemplate($oMail, $templateID, $variables, $categories) {
+		throw new UnsupportedOperationException();
+	}
+	
 }
 
 ?>

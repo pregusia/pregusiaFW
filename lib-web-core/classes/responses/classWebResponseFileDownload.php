@@ -41,7 +41,7 @@ class WebResponseFileDownload extends WebResponseBase {
 		if ($this->contentType) {
 			$oHttpResponse->setContentType($this->contentType);
 		}
-		
+		$oHttpResponse->setStatusCode($this->getHttpCode());
 		$oHttpResponse->getHeaders()->putSingle('Content-Disposition', sprintf('attachment; filename="%s"', $this->fileName));
 
 		$self = $this;

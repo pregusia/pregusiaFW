@@ -32,9 +32,20 @@ class HTTPServerRequestPHP implements IHTTPServerRequest {
 	private $referer = '';
 	private $contentType = '';
 	private $requestContent = '';
+
+	/**
+	 * @var Configuration
+	 */
+	private $oSessionConfig = null;
 	
+	/**
+	 * @var PropertiesMap
+	 */
 	private $oPostParams = null;
 	
+	/**
+	 * @var PropertiesMap
+	 */
 	private $oGetParams = null;
 
 	/**
@@ -101,7 +112,7 @@ class HTTPServerRequestPHP implements IHTTPServerRequest {
 	 */
 	public function getSession() {
 		if (!$this->session) {
-			$this->session = new HTTPSession($this);
+			$this->session = new HTTPSession($this, $this->oSessionConfig);
 		}
 		return $this->session;
 	}	
@@ -130,7 +141,7 @@ class HTTPServerRequestPHP implements IHTTPServerRequest {
 		$serverRemotePort = $_SERVER['REMOTE_PORT'];
 		$serverHttps = $_SERVER['HTTPS'];
 		$serverPort = $_SERVER['SERVER_PORT'];
-		$serverName = $_SERVER['SERVER_NAME'];		
+		$serverName = $_SERVER['HTTP_HOST'] ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];		
 		
 		if ($oConfig) {
 			if ($oConfig->getValue('handleProxyHeaders')) {
@@ -144,6 +155,14 @@ class HTTPServerRequestPHP implements IHTTPServerRequest {
 				if ($_SERVER['HTTP_X_FORWARDED_PORT']) {
 					$serverPort = $_SERVER['HTTP_X_FORWARDED_PORT'];
 				}
+				if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+					$serverHttps = 'on';
+					$serverPort = 443;
+				}
+			}
+			
+			if ($oConfig->hasKey('session')) {
+				$this->oSessionConfig = $oConfig->getSubConfig('session');
 			}
 		}
 		
@@ -185,6 +204,7 @@ class HTTPServerRequestPHP implements IHTTPServerRequest {
 			case 'HEAD': $this->method = HTTPMethod::HEAD; break;
 			case 'DELETE': $this->method = HTTPMethod::DELETE; break;
 			case 'PATCH': $this->method = HTTPMethod::PATCH; break;
+			case 'OPTIONS': $this->method = HTTPMethod::OPTIONS; break;
 			default: $this->method = HTTPMethod::UNKNOWN; break;
 		}
 		

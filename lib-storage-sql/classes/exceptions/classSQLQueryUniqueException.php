@@ -29,7 +29,7 @@ class SQLQueryUniqueException extends SQLQueryErrorException {
 	public function infoKeyName() { return $this->keyName; }
 
 	//************************************************************************************
-	public function __construct($errNo, $errText, $queryText) {
+	public function __construct($errNo=0, $errText='', $queryText='') {
 		parent::__construct($errNo, $errText, $queryText);
 		
 		$aMatches = array();
@@ -39,6 +39,23 @@ class SQLQueryUniqueException extends SQLQueryErrorException {
 
 		$this->keyName = $arr[1];
 	}
+	
+	//************************************************************************************
+	public function jsonSerialize() {
+		return array(
+			'errorNo' => $this->errorNo,
+			'errorText' => $this->errorText,
+			'queryText' => $this->queryText,
+			'keyName' => $this->keyName,
+		);
+	}
+	
+	//************************************************************************************
+	public static function jsonUnserialize($arr) {
+		$obj = new SQLQueryUniqueException($arr['errorNo'], $arr['errorText'], $arr['queryText']);
+		$obj->keyName = $arr['keyName'];
+		return $obj;
+	}	
 
 }
 

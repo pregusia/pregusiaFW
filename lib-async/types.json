@@ -1,10 +1,11 @@
 [
-	{"kind": "class", "name": "AsyncEventWrapper", "path": "./classes/classAsyncEventWrapper.php", "annos": [] },
-	{"kind": "class", "name": "AsyncEventRunnable_Closure", "path": "./classes/actions/classAsyncEventRunnable_Closure.php", "annos": [] },
+	{"kind": "class", "name": "AsyncEventsDispatcher_Beanstalk", "path": "./classes/beanstalk/AsyncEventsDispatcher_Beanstalk.php", "annos": [] },
 	{"kind": "iface", "name": "IAsyncEventsConsumer", "path": "./classes/interfaceIAsyncEventsConsumer.php", "annos": [] },
 	{"kind": "iface", "name": "IAsyncEventRunnable", "path": "./classes/actions/interfaceIAsyncEventRunnable.php", "annos": [] },
+	{"kind": "class", "name": "AsyncEventsApplicationComponent", "path": "./classes/classAsyncEventsApplicationComponent.php", "annos": [] },
 	{"kind": "class", "name": "AsyncEventsDispatcher_AMD", "path": "./classes/amd/classAsyncEvnetsDispatcher_AMD.php", "annos": [] },
+	{"kind": "class", "name": "AsyncEventWrapper", "path": "./classes/classAsyncEventWrapper.php", "annos": [] },
 	{"kind": "class", "name": "AsyncEventsConsumer_Runnables", "path": "./classes/actions/classAsyncEventsConsumer_Runnables.php", "annos": [] },
-	{"kind": "iface", "name": "IAsyncEventsDispatcher", "path": "./classes/interfaceIAsyncEventsDispatcher.php", "annos": [] },
-	{"kind": "class", "name": "AsyncEventsApplicationComponent", "path": "./classes/classAsyncEventsApplicationComponent.php", "annos": [] }
+	{"kind": "class", "name": "AsyncEventRunnable_Closure", "path": "./classes/actions/classAsyncEventRunnable_Closure.php", "annos": [] },
+	{"kind": "iface", "name": "IAsyncEventsDispatcher", "path": "./classes/interfaceIAsyncEventsDispatcher.php", "annos": [] }
 ]

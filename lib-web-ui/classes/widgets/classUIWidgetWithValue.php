@@ -41,9 +41,26 @@ abstract class UIWidgetWithValue extends UIWidget implements IUIReadable, IUIVal
 	
 	//************************************************************************************
 	public function getValue() { return $this->value; }
-	public function setValue($v) { $this->value = $v; return $this; }
-	public function resetValue() { $this->value = ''; }
 	public function isValueEmpty() { return $this->getValueString() ? false : true; }
+	
+	//************************************************************************************
+	/**
+	 * @param mixed $v
+	 * @return UIWidgetWithValue
+	 */
+	public function setValue($v) {
+		$this->value = $v;
+		return $this;
+	}
+	
+	//************************************************************************************
+	/**
+	 * @return UIWidgetWithValue
+	 */
+	public function resetValue() {
+		$this->value = '';
+		return $this;
+	}
 	
 	//************************************************************************************
 	public function getValueString() { return UtilsString::toString($this->value); }
@@ -52,10 +69,12 @@ abstract class UIWidgetWithValue extends UIWidget implements IUIReadable, IUIVal
 	//************************************************************************************
 	/**
 	 * @param IValidator $oValidator
+	 * @return UIWidgetWithValue
 	 */
 	public function addValidator($oValidator) {
 		if (!($oValidator instanceof IValidator)) throw new InvalidArgumentException('oValidator is not IValidator');
 		$this->validators[] = $oValidator;
+		return $this;
 	}
 	
 	//************************************************************************************

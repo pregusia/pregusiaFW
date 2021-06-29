@@ -39,6 +39,7 @@ class WebResponseFileContent extends WebResponseBase {
 		if ($this->contentType) {
 			$oHttpResponse->setContentType($this->contentType);
 		}
+		$oHttpResponse->setStatusCode($this->getHttpCode());
 
 		$self = $this;
 		$oHttpResponse->pushOutputFunction(function() use ($self){

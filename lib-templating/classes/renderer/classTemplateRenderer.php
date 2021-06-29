@@ -82,6 +82,15 @@ class TemplateRenderer {
 	
 	//************************************************************************************
 	/**
+	 * @param string $name
+	 * @return bool
+	 */
+	public function hasFunction($name) {
+		return $this->customFunctions[$name] ? true : false;
+	}
+	
+	//************************************************************************************
+	/**
 	 * Registers custom function
 	 * @param string $name
 	 * @param Closure $func
