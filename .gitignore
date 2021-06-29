@@ -1,2 +1,5 @@
 *.phar
+.buildpath
+.project
+/.settings/
 
