@@ -11,7 +11,6 @@
 	{"kind": "class", "name": "RemoteServiceAuthData_Basic", "path": "./classes/auth/classRemoteServiceAuthData_Basic.php", "annos": [] },
 	{"kind": "iface", "name": "not", "path": "./classes/classRemoteServiceClient.php", "annos": [] },
 	{"kind": "class", "name": "APIProcessingErrorException", "path": "./classes/classAPIProcessingErrorException.php", "annos": [] },
-	{"kind": "class", "name": "APIPaginatedResults", "path": "./classes/classAPIPaginatedResults.php", "annos": [] },
 	{"kind": "class", "name": "RemoteServiceAuthAcceptor", "path": "./classes/auth/acceptor/classRemoteServiceAuthAcceptor.php", "annos": [] },
 	{"kind": "class", "name": "APIApplicationComponent", "path": "./classes/classAPIApplicationComponent.php", "annos": [] },
 	{"kind": "class", "name": "RemoteServiceAuthData_String", "path": "./classes/auth/classRemoteServiceAuthData_String.php", "annos": [] },

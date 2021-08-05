@@ -1,0 +1,5 @@
+[
+	{"kind": "class", "name": "RemoteTableResults", "path": "./classes/classRemoteTableResults.php", "annos": [] },
+	{"kind": "class", "name": "RemoteTablePagination", "path": "./classes/classRemoteTablePagination.php", "annos": [] },
+	{"kind": "class", "name": "RemoteTableFilter", "path": "./classes/classRemoteTableFilter.php", "annos": [] }
+]
